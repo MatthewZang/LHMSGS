@@ -1,0 +1,1320 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #87CEEB; /* Sky color */
+    margin: 0;
+    padding: 0;
+}
+
+.simulator-container {
+    position: relative;
+    width: 100%;
+    height: 400px;
+    overflow: hidden;
+    background-color: #87CEEB; /* Sky color */
+}
+
+.viewport {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    left: 0;
+    top: 0;
+    transition: transform 0.1s linear;
+}
+
+#track {
+    position: absolute;
+    bottom: 50px;
+    left: -1000px;
+    width: 120000px;
+    height: 20px;
+    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 20">\
+        <!-- Track Base -->\
+        <rect x="0" y="0" width="100" height="20" fill="%23555"/>\
+        <!-- Sleepers/Ties with better shading -->\
+        <rect x="0" y="8" width="10" height="4" fill="%23654321" stroke="%23543210" stroke-width="0.5"/>\
+        <rect x="15" y="8" width="10" height="4" fill="%23654321" stroke="%23543210" stroke-width="0.5"/>\
+        <rect x="30" y="8" width="10" height="4" fill="%23654321" stroke="%23543210" stroke-width="0.5"/>\
+        <rect x="45" y="8" width="10" height="4" fill="%23654321" stroke="%23543210" stroke-width="0.5"/>\
+        <rect x="60" y="8" width="10" height="4" fill="%23654321" stroke="%23543210" stroke-width="0.5"/>\
+        <rect x="75" y="8" width="10" height="4" fill="%23654321" stroke="%23543210" stroke-width="0.5"/>\
+        <rect x="90" y="8" width="10" height="4" fill="%23654321" stroke="%23543210" stroke-width="0.5"/>\
+        <!-- Rails with metallic appearance -->\
+        <rect x="0" y="5" width="100" height="2" fill="%23888" stroke="%23666" stroke-width="0.2"/>\
+        <rect x="0" y="13" width="100" height="2" fill="%23888" stroke="%23666" stroke-width="0.2"/>\
+        <!-- Rail highlights for metallic look -->\
+        <line x1="0" y1="5.5" x2="100" y2="5.5" stroke="%23aaa" stroke-width="0.5"/>\
+        <line x1="0" y1="13.5" x2="100" y2="13.5" stroke="%23aaa" stroke-width="0.5"/>\
+        <!-- Rail joints -->\
+        <rect x="24.5" y="5" width="1" height="2" fill="%23666"/>\
+        <rect x="49.5" y="5" width="1" height="2" fill="%23666"/>\
+        <rect x="74.5" y="5" width="1" height="2" fill="%23666"/>\
+        <rect x="24.5" y="13" width="1" height="2" fill="%23666"/>\
+        <rect x="49.5" y="13" width="1" height="2" fill="%23666"/>\
+        <rect x="74.5" y="13" width="1" height="2" fill="%23666"/>\
+        <!-- Ballast texture suggestion -->\
+        <path d="M0,20 L100,20 L100,16 C95,17 90,16.5 85,17 C80,17.5 75,16 70,16.5 C65,17 60,16.5 55,17 C50,17.5 45,16 40,16.5 C35,17 30,16.5 25,17 C20,17.5 15,16 10,16.5 C5,17 0,16.5 0,16 Z" fill="%23777" opacity="0.3"/>\
+    </svg>');
+    background-repeat: repeat-x;
+    z-index: 1;
+}
+
+#ballast {
+    position: absolute;
+    bottom: 40px;
+    left: -1000px;
+    width: 120000px;
+    height: 30px;
+    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 30">\
+        <!-- Ballast Base -->\
+        <rect x="0" y="0" width="100" height="30" fill="%23777"/>\
+        <!-- Ballast Texture -->\
+        <rect x="0" y="0" width="100" height="30" fill="url(%23ballastPattern)"/>\
+        <defs>\
+            <pattern id="ballastPattern" patternUnits="userSpaceOnUse" width="10" height="10">\
+                <rect x="0" y="0" width="10" height="10" fill="%23777"/>\
+                <circle cx="2" cy="2" r="1" fill="%23666"/>\
+                <circle cx="7" cy="3" r="1.5" fill="%23666"/>\
+                <circle cx="4" cy="8" r="1.2" fill="%23666"/>\
+                <circle cx="9" cy="7" r="1" fill="%23666"/>\
+            </pattern>\
+        </defs>\
+        <!-- Ballast Shading -->\
+        <path d="M0,0 L100,0 L90,30 L10,30 Z" fill="%23666" opacity="0.2"/>\
+    </svg>');
+    background-repeat: repeat-x;
+    z-index: 0;
+}
+
+#train {
+    position: absolute;
+    bottom: 60px;
+    left: 0;
+    width: 400px;
+    height: 100px;
+    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 100">\
+        <!-- Gradients Definitions -->\
+        <defs>\
+            <linearGradient id="silverBody" x1="0%" y1="0%" x2="0%" y2="100%">\
+                <stop offset="0%" style="stop-color:%23f5f5f5"/>\
+                <stop offset="100%" style="stop-color:%23e0e0e0"/>\
+            </linearGradient>\
+            <linearGradient id="yellowStripe" x1="0%" y1="0%" x2="0%" y2="100%">\
+                <stop offset="0%" style="stop-color:%23ffdd00"/>\
+                <stop offset="100%" style="stop-color:%23ffb700"/>\
+            </linearGradient>\
+            <linearGradient id="windowGlass" x1="0%" y1="0%" x2="0%" y2="100%">\
+                <stop offset="0%" style="stop-color:%23111a2f"/>\
+                <stop offset="100%" style="stop-color:%23203060"/>\
+            </linearGradient>\
+            <linearGradient id="darkFront" x1="0%" y1="0%" x2="0%" y2="100%">\
+                <stop offset="0%" style="stop-color:%23111"/>\
+                <stop offset="100%" style="stop-color:%23000"/>\
+            </linearGradient>\
+        </defs>\
+        <!-- Main Body (Silver) -->\
+        <rect x="0" y="10" width="320" height="75" fill="url(%23silverBody)"/>\
+        <!-- Black Middle Section -->\
+        <rect x="0" y="30" width="320" height="40" fill="%23111"/>\
+        <!-- Yellow Stripe at Top -->\
+        <rect x="0" y="15" width="320" height="15" fill="url(%23yellowStripe)"/>\
+        <!-- More Triangular Front -->\
+        <path d="M320,10 L400,30 L400,85 L320,85 Z" fill="url(%23darkFront)"/>\
+        <!-- Front Window (smaller) -->\
+        <path d="M335,30 L380,40 L380,70 L335,70 Z" fill="url(%23windowGlass)"/>\
+        <!-- Windows -->\
+        <rect x="20" y="35" width="45" height="25" fill="url(%23windowGlass)"/>\
+        <rect x="80" y="35" width="45" height="25" fill="url(%23windowGlass)"/>\
+        <rect x="140" y="35" width="45" height="25" fill="url(%23windowGlass)"/>\
+        <rect x="200" y="35" width="45" height="25" fill="url(%23windowGlass)"/>\
+        <rect x="260" y="35" width="45" height="25" fill="url(%23windowGlass)"/>\
+        <!-- VIA Logo -->\
+        <text x="120" y="55" font-family="Arial" font-size="22" fill="%23ffdd00" font-weight="bold">VIA</text>\
+        <!-- Headlights -->\
+        <circle cx="395" cy="45" r="4" fill="%23fff"/>\
+        <circle cx="395" cy="70" r="4" fill="%23fff"/>\
+        <!-- Undercarriage -->\
+        <rect x="0" y="85" width="400" height="15" fill="%23333"/>\
+        <!-- Door Lines -->\
+        <path d="M65,30 L65,70" stroke="%23aaa" stroke-width="1"/>\
+        <path d="M125,30 L125,70" stroke="%23aaa" stroke-width="1"/>\
+        <path d="M185,30 L185,70" stroke="%23aaa" stroke-width="1"/>\
+        <path d="M245,30 L245,70" stroke="%23aaa" stroke-width="1"/>\
+        <path d="M305,30 L305,70" stroke="%23aaa" stroke-width="1"/>\
+        <!-- Wheels -->\
+        <circle cx="50" cy="90" r="8" fill="%23222"/>\
+        <circle cx="150" cy="90" r="8" fill="%23222"/>\
+        <circle cx="250" cy="90" r="8" fill="%23222"/>\
+        <circle cx="350" cy="90" r="8" fill="%23222"/>\
+    </svg>');
+    background-size: cover;
+    transition: left 0.1s linear;
+    z-index: 3;
+}
+
+#platform {
+    position: absolute;
+    bottom: 50px;
+    left: -1000px;
+    width: 120000px;
+    height: 30px;
+    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 30">\
+        <!-- Platform Base -->\
+        <rect x="0" y="0" width="100" height="30" fill="%23a0a0a0"/>\
+        <!-- Platform Edge -->\
+        <rect x="0" y="0" width="100" height="3" fill="%23ffdd00"/>\
+        <!-- Platform Tiles -->\
+        <rect x="0" y="5" width="20" height="20" fill="%23909090"/>\
+        <rect x="20" y="5" width="20" height="20" fill="%23989898"/>\
+        <rect x="40" y="5" width="20" height="20" fill="%23909090"/>\
+        <rect x="60" y="5" width="20" height="20" fill="%23989898"/>\
+        <rect x="80" y="5" width="20" height="20" fill="%23909090"/>\
+    </svg>');
+    background-repeat: repeat-x;
+    z-index: 1;
+}
+
+#controls {
+    position: relative;
+    z-index: 3;
+}
+
+button {
+    margin: 5px;
+    padding: 10px;
+    font-size: 16px;
+    cursor: pointer;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 4px;
+}
+
+button:hover {
+    background-color: #45a049;
+}
+
+#status {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    color: black;
+    background-color: rgba(255, 255, 255, 0.8);
+    padding: 10px;
+    border-radius: 4px;
+    z-index: 1000;
+}
+
+/* Base station style that all stations will use */
+.station, .station.vancouver, .station.jasper, .station.pacific-central {
+    position: absolute;
+    bottom: 50px;
+    width: 2000px;
+    height: 200px;
+    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 2000 200">\
+        <!-- Platform Base -->\
+        <rect x="0" y="150" width="2000" height="20" fill="%23a0a0a0"/>\
+        <!-- Platform Edge -->\
+        <rect x="0" y="150" width="2000" height="3" fill="%23ffdd00"/>\
+        <!-- Main Building Structure (On Platform) -->\
+        <rect x="830" y="70" width="340" height="80" fill="url(%23buildingGradient)"/>\
+        <defs>\
+            <linearGradient id="buildingGradient" x1="0%" y1="0%" x2="0%" y2="100%">\
+                <stop offset="0%" style="stop-color:%23e8e8e8"/>\
+                <stop offset="100%" style="stop-color:%23c0c0c0"/>\
+            </linearGradient>\
+            <linearGradient id="roofGradient" x1="0%" y1="0%" x2="0%" y2="100%">\
+                <stop offset="0%" style="stop-color:%23855E42"/>\
+                <stop offset="100%" style="stop-color:%23654321"/>\
+            </linearGradient>\
+            <linearGradient id="windowGradient" x1="0%" y1="0%" x2="0%" y2="100%">\
+                <stop offset="0%" style="stop-color:%23b0c4de"/>\
+                <stop offset="100%" style="stop-color:%238db0d3"/>\
+            </linearGradient>\
+        </defs>\
+        <!-- Modern Station Roof -->\
+        <path d="M810,70 L1000,40 L1190,70 L1190,80 L810,80 Z" fill="url(%23roofGradient)"/>\
+        <!-- Roof Details -->\
+        <path d="M820,70 L1180,70" stroke="%23654321" stroke-width="2"/>\
+        <path d="M820,75 L1180,75" stroke="%23654321" stroke-width="1"/>\
+        <!-- Modern Windows -->\
+        <rect x="860" y="90" width="60" height="40" rx="2" fill="url(%23windowGradient)" stroke="%23fff" stroke-width="2"/>\
+        <rect x="940" y="90" width="60" height="40" rx="2" fill="url(%23windowGradient)" stroke="%23fff" stroke-width="2"/>\
+        <rect x="1020" y="90" width="60" height="40" rx="2" fill="url(%23windowGradient)" stroke="%23fff" stroke-width="2"/>\
+        <rect x="1100" y="90" width="40" height="40" rx="2" fill="url(%23windowGradient)" stroke="%23fff" stroke-width="2"/>\
+        <!-- Station Sign with Text -->\
+        <rect x="950" y="50" width="100" height="25" rx="3" fill="%23fff" stroke="%23333" stroke-width="1"/>\
+        <text x="1000" y="67" font-family="Arial" font-size="14" fill="%23000" text-anchor="middle">VIA Station</text>\
+        <!-- Platform Details -->\
+        <rect x="10" y="155" width="1980" height="2" fill="%23ffdd00"/>\
+        <!-- Platform Tiles -->\
+        <rect x="0" y="160" width="2000" height="10" fill="%23909090"/>\
+        <!-- Benches -->\
+        <rect x="100" y="140" width="40" height="10" rx="2" fill="%23555"/>\
+        <rect x="100" y="135" width="40" height="5" rx="1" fill="%23777"/>\
+        <rect x="350" y="140" width="40" height="10" rx="2" fill="%23555"/>\
+        <rect x="350" y="135" width="40" height="5" rx="1" fill="%23777"/>\
+        <rect x="1610" y="140" width="40" height="10" rx="2" fill="%23555"/>\
+        <rect x="1610" y="135" width="40" height="5" rx="1" fill="%23777"/>\
+        <rect x="1860" y="140" width="40" height="10" rx="2" fill="%23555"/>\
+        <rect x="1860" y="135" width="40" height="5" rx="1" fill="%23777"/>\
+        <!-- Decorative Elements -->\
+        <circle cx="50" cy="140" r="8" fill="%23228B22"/>\
+        <circle cx="1950" cy="140" r="8" fill="%23228B22"/>\
+        <rect x="200" y="135" width="5" height="15" fill="%23333"/>\
+        <circle cx="202.5" cy="130" r="5" fill="%23ffdd00"/>\
+        <rect x="1800" y="135" width="5" height="15" fill="%23333"/>\
+        <circle cx="1802.5" cy="130" r="5" fill="%23ffdd00"/>\
+    </svg>');
+    background-size: contain;
+    background-repeat: no-repeat;
+    z-index: 1;
+}
+
+/* Individual station positions and names */
+.station {
+    left: 200px;
+}
+
+.station.jasper {
+    left: 16700px;
+}
+.station.jasper::after {
+    display: none;
+}
+
+.station.pacific-central {
+    left: 34500px;
+}
+.station.pacific-central::after {
+    display: none;
+}
+
+.station.kamloops {
+    left: 53000px;
+}
+.station.kamloops::after {
+    display: none;
+}
+
+.station.union {
+    left: 74000px;
+}
+.station.union::after {
+    display: none;
+}
+
+.throttle-container {
+    position: fixed;
+    bottom: 20px;
+    left: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+    background: rgba(0, 0, 0, 0.8);
+    border-radius: 10px;
+    color: white;
+    z-index: 1000;
+    gap: 10px;
+}
+
+.forward-throttle-container {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+    background: rgba(0, 0, 0, 0.8);
+    border-radius: 10px;
+    color: white;
+    z-index: 1000;
+    gap: 10px;
+}
+
+.throttle-slider {
+    width: 40px;
+    height: 200px;
+    -webkit-appearance: slider-vertical;
+    margin: 20px 0;
+    cursor: pointer;
+}
+
+.throttle-label, .speed-label {
+    margin: 10px 0;
+    font-size: 16px;
+    white-space: nowrap;
+}
+
+.emergency-stop {
+    background-color: #ff3333;
+    color: white;
+    padding: 15px 30px;
+    border: none;
+    border-radius: 5px;
+    font-weight: bold;
+    cursor: pointer;
+    margin-top: 20px;
+    transition: background-color 0.3s;
+}
+
+.emergency-stop:hover {
+    background-color: #cc0000;
+}
+
+/* Improve the train map display */
+.train-map {
+    position: fixed;
+    bottom: 20px;
+    left: 20px;
+    width: 300px;
+    height: 60px;
+    background-color: rgba(255, 255, 255, 0.9);
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+    padding: 10px;
+    z-index: 1000;
+}
+
+.map-track {
+    position: relative;
+    width: 100%;
+    height: 8px;
+    background-color: #555;
+    border-radius: 4px;
+    margin-top: 20px;
+}
+
+.map-station {
+    position: absolute;
+    width: 12px;
+    height: 12px;
+    background-color: #2c3e50;
+    border-radius: 50%;
+    top: -2px;
+    transform: translateX(-6px);
+    cursor: pointer;
+}
+
+.map-station::after {
+    content: attr(data-name);
+    position: absolute;
+    top: -20px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 10px;
+    white-space: nowrap;
+    color: #333;
+}
+
+.map-train {
+    position: absolute;
+    width: 16px;
+    height: 16px;
+    background-color: #e74c3c;
+    border-radius: 50%;
+    top: -4px;
+    transform: translateX(-8px);
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+    transition: left 0.3s ease-out;
+    cursor: help;
+}
+
+/* Add a title to the map */
+.train-map::before {
+    content: 'Train Location';
+    position: absolute;
+    top: 5px;
+    left: 10px;
+    font-size: 12px;
+    font-weight: bold;
+    color: #333;
+}
+
+/* Add styles for the welcome message */
+.welcome-message {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: rgba(0, 0, 0, 0.9);
+    color: white;
+    padding: 30px;
+    border-radius: 15px;
+    text-align: center;
+    z-index: 2000;
+    max-width: 500px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+}
+
+.welcome-message h2 {
+    color: gold;
+    margin-bottom: 20px;
+    font-size: 24px;
+}
+
+.welcome-message p {
+    margin: 10px 0;
+    line-height: 1.5;
+    font-size: 16px;
+}
+
+.welcome-message button {
+    margin-top: 20px;
+    padding: 10px 30px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s;
+}
+
+.welcome-message button:hover {
+    background-color: #45a049;
+}
+
+.direction-switch {
+    margin: 10px 0;
+}
+
+.direction-button {
+    background-color: #4a90e2;
+    color: white;
+    padding: 8px 15px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.direction-button:hover {
+    background-color: #357abd;
+}
+
+.throttle-value {
+    font-size: 14px;
+    color: #fff;
+    margin: 5px 0;
+}
+
+/* Add new carriage style */
+.carriage {
+    position: absolute;
+    bottom: 60px;
+    left: -420px;
+    width: 400px;
+    height: 100px;
+    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 100">\
+        <!-- Gradients Definitions -->\
+        <defs>\
+            <linearGradient id="silverBody" x1="0%" y1="0%" x2="0%" y2="100%">\
+                <stop offset="0%" style="stop-color:%23f5f5f5"/>\
+                <stop offset="100%" style="stop-color:%23e0e0e0"/>\
+            </linearGradient>\
+            <linearGradient id="yellowStripe" x1="0%" y1="0%" x2="0%" y2="100%">\
+                <stop offset="0%" style="stop-color:%23ffdd00"/>\
+                <stop offset="100%" style="stop-color:%23ffb700"/>\
+            </linearGradient>\
+            <linearGradient id="windowGlass" x1="0%" y1="0%" x2="0%" y2="100%">\
+                <stop offset="0%" style="stop-color:%23111a2f"/>\
+                <stop offset="100%" style="stop-color:%23203060"/>\
+            </linearGradient>\
+        </defs>\
+        <!-- Main Body (Silver) -->\
+        <rect x="0" y="10" width="400" height="75" fill="url(%23silverBody)"/>\
+        <!-- Black Middle Section -->\
+        <rect x="0" y="30" width="400" height="40" fill="%23111"/>\
+        <!-- Yellow Stripe at Top -->\
+        <rect x="0" y="15" width="400" height="15" fill="url(%23yellowStripe)"/>\
+        <!-- Connector Ends -->\
+        <circle cx="0" cy="50" r="8" fill="%23222"/>\
+        <circle cx="400" cy="50" r="8" fill="%23222"/>\
+        <!-- Windows -->\
+        <rect x="30" y="35" width="45" height="25" fill="url(%23windowGlass)"/>\
+        <rect x="95" y="35" width="45" height="25" fill="url(%23windowGlass)"/>\
+        <rect x="160" y="35" width="45" height="25" fill="url(%23windowGlass)"/>\
+        <rect x="225" y="35" width="45" height="25" fill="url(%23windowGlass)"/>\
+        <rect x="290" y="35" width="45" height="25" fill="url(%23windowGlass)"/>\
+        <!-- Undercarriage -->\
+        <rect x="0" y="85" width="400" height="15" fill="%23333"/>\
+        <!-- Door Lines -->\
+        <path d="M75,30 L75,70" stroke="%23aaa" stroke-width="1"/>\
+        <path d="M140,30 L140,70" stroke="%23aaa" stroke-width="1"/>\
+        <path d="M205,30 L205,70" stroke="%23aaa" stroke-width="1"/>\
+        <path d="M270,30 L270,70" stroke="%23aaa" stroke-width="1"/>\
+        <path d="M335,30 L335,70" stroke="%23aaa" stroke-width="1"/>\
+        <!-- Wheels -->\
+        <circle cx="50" cy="90" r="8" fill="%23222"/>\
+        <circle cx="150" cy="90" r="8" fill="%23222"/>\
+        <circle cx="250" cy="90" r="8" fill="%23222"/>\
+        <circle cx="350" cy="90" r="8" fill="%23222"/>\
+    </svg>');
+    background-size: cover;
+    transition: left 0.1s linear;
+    z-index: 2;
+}
+
+/* Realistic locomotive control panel */
+.locomotive-control-panel {
+    position: fixed;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 800px;
+    height: 400px;
+    background-color: #2a2a2a;
+    border-radius: 10px;
+    border: 2px solid #444;
+    box-shadow: 0 0 30px rgba(0, 0, 0, 0.7);
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    z-index: 1000;
+    font-family: 'Arial', sans-serif;
+}
+
+.panel-header {
+    text-align: center;
+    margin-bottom: 15px;
+    border-bottom: 2px solid #444;
+    padding-bottom: 10px;
+}
+
+.panel-title {
+    color: #ddd;
+    font-size: 24px;
+    font-weight: bold;
+    letter-spacing: 2px;
+}
+
+.panel-gauges {
+    display: flex;
+    justify-content: space-around;
+    margin-bottom: 20px;
+}
+
+.gauge {
+    width: 180px;
+    height: 180px;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.gauge-dial {
+    width: 150px;
+    height: 150px;
+    background-color: #222;
+    border-radius: 50%;
+    border: 5px solid #444;
+    position: relative;
+    background-image: conic-gradient(
+        from 135deg,
+        #333 0deg,
+        #333 270deg,
+        #222 270deg,
+        #222 360deg
+    );
+    box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.8);
+}
+
+.gauge-dial::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    background-image: repeating-conic-gradient(
+        from 135deg,
+        transparent 0deg,
+        transparent 2.7deg,
+        rgba(255, 255, 255, 0.1) 2.7deg,
+        rgba(255, 255, 255, 0.1) 5.4deg
+    );
+    opacity: 0.5;
+}
+
+.gauge-needle {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 70px;
+    height: 4px;
+    background-color: #f00;
+    transform-origin: 0% 50%;
+    transform: translateY(-50%) rotate(0deg);
+    border-radius: 2px;
+    box-shadow: 0 0 5px rgba(255, 0, 0, 0.7);
+    transition: transform 0.2s ease-out;
+    z-index: 2;
+}
+
+.gauge-center {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 20px;
+    height: 20px;
+    background-color: #444;
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    border: 2px solid #666;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+    z-index: 3;
+}
+
+.gauge-label {
+    margin-top: 10px;
+    color: #aaa;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.gauge-value {
+    color: #fff;
+    font-size: 24px;
+    font-weight: bold;
+    margin-top: 5px;
+}
+
+.gauge-unit {
+    color: #888;
+    font-size: 12px;
+    margin-top: 2px;
+}
+
+.control-stand {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    height: 180px;
+    background-color: #333;
+    border-radius: 8px;
+    padding: 15px;
+    border: 1px solid #555;
+    flex-wrap: wrap;
+}
+
+.throttle-section {
+    width: 180px;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.throttle-label {
+    color: #ccc;
+    font-size: 16px;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.throttle-track {
+    width: 80px;
+    height: 130px;
+    background-color: #222;
+    border-radius: 10px;
+    position: relative;
+    border: 2px solid #444;
+}
+
+.throttle-notches {
+    position: absolute;
+    right: -60px;
+    top: 0;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.throttle-notch {
+    color: #aaa;
+    font-size: 14px;
+    font-weight: bold;
+    cursor: pointer;
+    padding: 2px 5px;
+    border-radius: 3px;
+    transition: all 0.2s;
+}
+
+.throttle-notch:hover {
+    color: #fff;
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+.throttle-notch.active {
+    color: #4a90e2;
+    background-color: rgba(74, 144, 226, 0.2);
+}
+
+.throttle-handle {
+    position: absolute;
+    left: 0;
+    top: calc(100% - 30px); /* Position at bottom (IDLE) by default */
+    width: 80px;
+    height: 30px;
+    background: linear-gradient(to bottom, #d00, #900);
+    border-radius: 5px;
+    cursor: pointer;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    transition: top 0.1s ease;
+    z-index: 5; /* Ensure it's above the track */
+}
+
+.throttle-handle::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 60px;
+    height: 20px;
+    background: linear-gradient(to bottom, #f00, #b00);
+    border-radius: 3px;
+    transform: translate(-50%, -50%);
+}
+
+.direction-section {
+    width: 150px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.direction-label {
+    color: #ccc;
+    font-size: 16px;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.direction-control {
+    display: flex;
+    flex-direction: column;
+    background-color: #222;
+    border-radius: 8px;
+    overflow: hidden;
+    border: 2px solid #444;
+}
+
+.direction-option {
+    padding: 15px 20px;
+    color: #aaa;
+    font-weight: bold;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.2s;
+    border-bottom: 1px solid #444;
+}
+
+.direction-option:last-child {
+    border-bottom: none;
+}
+
+.direction-option:hover {
+    background-color: #2a2a2a;
+    color: #fff;
+}
+
+.direction-option.active {
+    background-color: #4a90e2;
+    color: #fff;
+}
+
+.emergency-section {
+    width: 150px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.emergency-button {
+    width: 120px;
+    height: 120px;
+    background-color: #d00;
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 0 20px rgba(255, 0, 0, 0.4), 
+                inset 0 0 15px rgba(0, 0, 0, 0.3);
+    transition: all 0.2s;
+}
+
+.emergency-button:hover {
+    background-color: #f00;
+    transform: scale(1.05);
+    box-shadow: 0 0 25px rgba(255, 0, 0, 0.6),
+                inset 0 0 15px rgba(0, 0, 0, 0.3);
+}
+
+.emergency-button.pressed {
+    transform: scale(0.95);
+    box-shadow: 0 0 15px rgba(255, 0, 0, 0.3),
+                inset 0 0 20px rgba(0, 0, 0, 0.5);
+}
+
+.emergency-icon {
+    width: 40px;
+    height: 40px;
+    background-color: #fff;
+    clip-path: polygon(
+        50% 0%, 
+        100% 25%, 
+        100% 75%, 
+        50% 100%, 
+        0% 75%, 
+        0% 25%
+    );
+    margin-bottom: 10px;
+}
+
+.emergency-text {
+    color: white;
+    font-weight: bold;
+    font-size: 14px;
+    text-align: center;
+    line-height: 1.2;
+}
+
+/* Add brake control styles */
+.brake-section {
+    width: 200px;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.brake-label {
+    color: #ccc;
+    font-size: 16px;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.brake-track {
+    width: 80px;
+    height: 130px;
+    background-color: #222;
+    border-radius: 10px;
+    position: relative;
+    border: 2px solid #444;
+}
+
+.brake-notches {
+    position: absolute;
+    right: -60px;
+    top: 0;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.brake-notch {
+    color: #aaa;
+    font-size: 14px;
+    font-weight: bold;
+    cursor: pointer;
+    padding: 2px 5px;
+    border-radius: 3px;
+    transition: all 0.2s;
+}
+
+.brake-notch:hover {
+    color: #fff;
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+.brake-notch.active {
+    color: #ff4d4d;
+    background-color: rgba(255, 77, 77, 0.2);
+}
+
+.brake-handle {
+    position: absolute;
+    left: 0;
+    top: 0; /* Position at top (OFF) by default */
+    width: 80px;
+    height: 30px;
+    background: linear-gradient(to bottom, #d44, #922);
+    border-radius: 5px;
+    cursor: pointer;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    transition: top 0.1s ease;
+    z-index: 5; /* Ensure it's above the track */
+}
+
+.brake-handle::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 60px;
+    height: 20px;
+    background: linear-gradient(to bottom, #f44, #b22);
+    border-radius: 3px;
+    transform: translate(-50%, -50%);
+}
+
+/* Enhanced brake sparks effect */
+.brake-sparks {
+    position: absolute;
+    bottom: 50px;
+    left: 0;
+    width: 400px;
+    height: 40px; /* Increased height for more dramatic sparks */
+    z-index: 100;
+    pointer-events: none;
+}
+
+.spark {
+    position: absolute;
+    bottom: 0;
+    width: 3px;
+    height: 3px;
+    background-color: #ff9900;
+    border-radius: 50%;
+    box-shadow: 0 0 12px 4px #ff6600; /* Increased glow */
+    animation: spark-fall 0.8s ease-out infinite;
+    transform-origin: center;
+}
+
+@keyframes spark-fall {
+    0% {
+        transform: translateY(-10px) translateX(-2px) scale(1.2) rotate(0deg);
+        opacity: 1;
+    }
+    20% {
+        opacity: 0.9;
+    }
+    50% {
+        opacity: 0.7;
+        transform: translateY(5px) translateX(-15px) scale(0.8) rotate(45deg);
+    }
+    100% {
+        transform: translateY(25px) translateX(-30px) scale(0.2) rotate(90deg);
+        opacity: 0;
+    }
+}
+
+/* Add a second spark animation for variety */
+.spark:nth-child(even) {
+    animation-name: spark-fall-alt;
+    animation-duration: 0.6s;
+}
+
+@keyframes spark-fall-alt {
+    0% {
+        transform: translateY(-8px) translateX(2px) scale(1) rotate(0deg);
+        opacity: 1;
+    }
+    30% {
+        opacity: 0.8;
+    }
+    70% {
+        opacity: 0.6;
+        transform: translateY(10px) translateX(10px) scale(0.6) rotate(-45deg);
+    }
+    100% {
+        transform: translateY(20px) translateX(20px) scale(0.1) rotate(-90deg);
+        opacity: 0;
+    }
+}
+
+/* Adjust control stand to fit brake lever */
+.control-stand {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    height: 180px;
+    background-color: #333;
+    border-radius: 8px;
+    padding: 15px;
+    border: 1px solid #555;
+    flex-wrap: wrap;
+}
+
+/* Adjust throttle section width */
+.throttle-section {
+    width: 180px;
+}
+
+/* Adjust direction section width */
+.direction-section {
+    width: 150px;
+}
+
+/* Adjust emergency section width */
+.emergency-section {
+    width: 150px;
+}
+
+/* Station panel button */
+.station-panel-button {
+    background-color: #2c3e50;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    margin-top: 10px;
+    border-radius: 5px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.station-panel-button:hover {
+    background-color: #34495e;
+}
+
+/* Station services panel */
+.station-services-panel {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 550px; /* Slightly wider */
+    max-width: 90vw; /* Responsive */
+    background-color: #f5f5f5;
+    border-radius: 10px;
+    box-shadow: 0 0 30px rgba(0, 0, 0, 0.6);
+    z-index: 2000;
+    overflow: hidden;
+    animation: panel-fade-in 0.3s ease-out;
+}
+
+@keyframes panel-fade-in {
+    from { opacity: 0; transform: translate(-50%, -48%); }
+    to { opacity: 1; transform: translate(-50%, -50%); }
+}
+
+.station-panel-header {
+    background-color: #2c3e50;
+    color: white;
+    padding: 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.station-panel-header h2 {
+    margin: 0;
+    font-size: 20px;
+}
+
+.close-panel-btn {
+    background: none;
+    border: none;
+    color: white;
+    font-size: 24px;
+    cursor: pointer;
+}
+
+.station-panel-content {
+    padding: 20px;
+}
+
+.station-service-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 0;
+    border-bottom: 1px solid #ddd;
+}
+
+.station-service-item:last-child {
+    border-bottom: none;
+}
+
+.service-info {
+    flex: 1;
+}
+
+.service-info h3 {
+    margin: 0 0 10px 0;
+    color: #2c3e50;
+}
+
+.service-info p {
+    margin: 0;
+    color: #555;
+}
+
+.service-btn {
+    background-color: #3498db;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.service-btn:hover {
+    background-color: #2980b9;
+}
+
+/* Fuel level bar */
+.fuel-level-bar {
+    width: 100%;
+    height: 20px;
+    background-color: #eee;
+    border-radius: 10px;
+    overflow: hidden;
+    margin: 10px 0;
+}
+
+.fuel-level-fill {
+    height: 100%;
+    background: linear-gradient(to right, #e74c3c, #f39c12, #2ecc71);
+    transition: width 0.5s;
+}
+
+/* Fuel gauge */
+.fuel-gauge {
+    width: 150px;
+    height: 150px;
+}
+
+/* Notification */
+.train-notification {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background-color: rgba(44, 62, 80, 0.9);
+    color: white;
+    padding: 15px 20px;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+    z-index: 1100;
+    animation: slide-in 0.5s ease-out;
+}
+
+.train-notification.fade-out {
+    animation: fade-out 0.5s ease-in forwards;
+}
+
+@keyframes slide-in {
+    from { transform: translateX(100%); opacity: 0; }
+    to { transform: translateX(0); opacity: 1; }
+}
+
+@keyframes fade-out {
+    from { opacity: 1; }
+    to { opacity: 0; }
+}
+
+/* Update the station access section in control panel */
+.station-access-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-top: 10px; /* Reduced from 20px to 10px */
+    width: 100%; /* Match the width of the emergency section */
+}
+
+/* Make the station panel button smaller and positioned under emergency brake */
+.control-stand .station-panel-button {
+    background-color: #e74c3c;
+    width: 120px; /* Reduced width */
+    padding: 8px 12px; /* Smaller padding */
+    font-size: 12px; /* Smaller font */
+    margin-top: 5px; /* Reduced top margin */
+    transition: background-color 0.3s, transform 0.2s;
+}
+
+/* Update the emergency section to include the station panel button */
+.emergency-section {
+    width: 150px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* Add a disabled state for the station panel button */
+.control-stand .station-panel-button.disabled {
+    background-color: #95a5a6;
+    cursor: not-allowed;
+    opacity: 0.7;
+}
+
+.control-stand .station-panel-button.disabled:hover {
+    background-color: #7f8c8d;
+    transform: none;
+}
+
+/* Add hover effect for the enabled button */
+.control-stand .station-panel-button:hover {
+    background-color: #c0392b;
+    transform: scale(1.05);
+}
+
+/* Add a semi-transparent overlay behind the panel */
+.station-panel-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 1999; /* Just below the panel but above everything else */
+}
+
+/* Ensure the locomotive control panel has a lower z-index */
+.locomotive-control-panel {
+    z-index: 1000;
+}
+
+/* Update the station info section */
+.station-info {
+    background-color: #f0f0f0;
+    padding: 15px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    border-left: 4px solid #2c3e50;
+}
+
+.station-info p {
+    margin: 0;
+    color: #333;
+    line-height: 1.5;
+}
+
+/* Emergency brake button styling */
+.emergency-brake-button {
+    background-color: #ff0000 !important; /* Bright red */
+    color: white;
+    padding: 15px 40px;
+    font-size: 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.3s;
+    box-shadow: 0 0 10px rgba(255, 0, 0, 0.3);
+    border: 2px solid #cc0000;
+}
+
+.emergency-brake-button:hover {
+    background-color: #cc0000 !important; /* Darker red on hover */
+    transform: scale(1.05);
+    box-shadow: 0 0 15px rgba(255, 0, 0, 0.5);
+}
+
+.emergency-brake-button.pressed {
+    background-color: #990000 !important; /* Even darker red when pressed */
+    transform: scale(0.95);
+    box-shadow: 0 0 8px rgba(255, 0, 0, 0.2);
+} 

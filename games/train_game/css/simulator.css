@@ -1,0 +1,276 @@
+.simulator-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+#cockpit {
+    width: 800px;
+    height: 600px;
+    position: relative;
+    margin: 0 auto;
+    overflow: hidden;
+    border: 2px solid #333;
+    background: linear-gradient(180deg, #87CEEB 0%, #87CEEB 50%, #8B4513 50%, #8B4513 100%);
+    perspective: 1000px;
+}
+
+#aircraft {
+    width: 500px;
+    height: 100px;
+    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 100">\
+        <!-- Main Fuselage -->\
+        <path d="M40,50 C60,50 70,40 80,40 L420,40 C440,40 460,45 480,50 L420,55 L80,55 C70,55 60,50 40,50" fill="white" stroke="white"/>\
+        <!-- Panel Lines -->\
+        <path d="M80,50 L420,50" stroke="rgba(0,0,0,0.2)" stroke-width="0.5" stroke-dasharray="5,5"/>\
+        <path d="M80,52 L420,52" stroke="rgba(0,0,0,0.2)" stroke-width="0.5" stroke-dasharray="5,5"/>\
+        <!-- Nose Cone -->\
+        <path d="M40,50 C50,52 60,53 80,53 L80,47 C60,47 50,48 40,50" fill="white" stroke="white"/>\
+        <!-- Wings -->\
+        <path d="M200,35 L300,50 L320,55 L320,60 L300,65 L200,80 L120,65 L120,55 L200,35" fill="white" stroke="white"/>\
+        <!-- Wing Details -->\
+        <path d="M200,40 L280,50 M200,60 L280,55" stroke="white" stroke-width="0.5" fill="none"/>\
+        <!-- Tail -->\
+        <path d="M350,20 L450,50 L450,60 L350,80 L320,50 L320,40 L350,20" fill="white" stroke="white"/>\
+        <!-- Vertical Stabilizer -->\
+        <path d="M370,20 L420,10 L450,50" fill="white" stroke="white"/>\
+        <!-- Engines -->\
+        <path d="M200,45 C200,42 215,42 215,45 L215,55 C215,58 200,58 200,55 Z M205,45 L210,55" fill="white" stroke="white"/>\
+        <path d="M250,45 C250,42 265,42 265,45 L265,55 C265,58 250,58 250,55 Z M255,45 L260,55" fill="white" stroke="white"/>\
+        <!-- Windows -->\
+        <path d="M80,47 L420,47" stroke="rgba(135,206,235,0.6)" stroke-width="2" stroke-dasharray="8,4"/>\
+        <!-- Cockpit Windows -->\
+        <path d="M45,48 L65,48 L68,50 L45,50 Z" fill="rgba(135,206,235,0.6)"/>\
+        <!-- Doors -->\
+        <rect x="90" y="51" width="10" height="2" fill="rgba(0,0,0,0.3)"/>\
+        <rect x="300" y="51" width="10" height="2" fill="rgba(0,0,0,0.3)"/>\
+        <!-- Emergency Exits -->\
+        <rect x="180" y="51" width="5" height="1" fill="rgba(0,0,0,0.3)"/>\
+        <rect x="240" y="51" width="5" height="1" fill="rgba(0,0,0,0.3)"/>\
+        <!-- Air Canada Text -->\
+        <text x="150" y="52" font-family="Arial" font-size="10" fill="%23FF0000" font-weight="bold">AIR CANADA</text>\
+        <!-- Maple Leaf Logo on Tail -->\
+        <path d="M370,25 L375,25 L377,28 L379,25 L384,25 L380,30 L384,35 L379,35 L377,32 L375,35 L370,35 L374,30 Z" fill="%23FF0000"/>\
+        <!-- Small Maple Leaf by Text -->\
+        <path d="M100,45 L102,45 L103,46 L104,45 L106,45 L104,47 L106,49 L104,49 L103,48 L102,49 L100,49 L102,47 Z" fill="%23FF0000"/>\
+        <!-- Landing Gear Compartments -->\
+        <path d="M180,55 L190,55 M250,55 L260,55" stroke="rgba(0,0,0,0.2)" stroke-width="1"/>\
+    </svg>');
+    position: absolute;
+    bottom: 50%;
+    left: 50%;
+    transform: translateX(-50%);
+    transition: all 0.3s ease;
+    filter: drop-shadow(0 0 4px rgba(0,0,0,0.7));
+}
+
+#instruments {
+    position: absolute;
+    bottom: 20px;
+    left: 20px;
+    background: rgba(0, 0, 0, 0.7);
+    padding: 10px;
+    border-radius: 5px;
+    color: #fff;
+}
+
+.instrument {
+    margin: 5px 0;
+    font-family: monospace;
+    font-size: 16px;
+}
+
+#controls {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+    margin-top: 20px;
+    padding: 20px;
+    background: #f5f5f5;
+    border-radius: 10px;
+}
+
+button {
+    padding: 15px;
+    font-size: 16px;
+    cursor: pointer;
+    background: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+}
+
+button:hover {
+    background: #45a049;
+}
+
+button:active {
+    transform: scale(0.98);
+}
+
+#sky {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 50%;
+    background: #87CEEB;
+    transition: all 0.3s ease;
+}
+
+#ground {
+    position: absolute;
+    top: 50%;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: #8B4513;
+    transition: opacity 0.3s ease;
+    opacity: 1;
+}
+
+/* Add mountain ranges for depth perception */
+.terrain-container {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 50%;
+    pointer-events: none; /* Allow clicks to pass through */
+}
+
+.mountain {
+    position: absolute;
+    width: 100px;
+    height: 100px;
+    background: #654321; /* Brown color for mountains */
+    clip-path: polygon(0% 100%, 20% 40%, 40% 80%, 60% 20%, 80% 60%, 100% 100%);
+    opacity: 0.7;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+}
+
+td {
+    padding: 10px;
+    text-align: center;
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+}
+
+.passenger-input {
+    margin: 20px 0;
+    text-align: center;
+}
+
+input[type="text"] {
+    padding: 10px;
+    margin-right: 10px;
+    width: 200px;
+}
+
+.alert {
+    background-color: #dff0d8;
+    border: 1px solid #d6e9c6;
+    color: #3c763d;
+    padding: 15px;
+    border-radius: 4px;
+    margin-top: 20px;
+    display: none;
+}
+
+.airplane-seats {
+    margin: 20px auto;
+    max-width: 600px;
+    padding: 20px;
+    background-color: #f5f5f5;
+    border-radius: 10px;
+}
+
+.seat-row {
+    display: flex;
+    justify-content: center;
+    margin: 5px 0;
+}
+
+.seat {
+    width: 40px;
+    height: 40px;
+    margin: 3px;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.seat:hover {
+    background-color: #e0e0e0;
+}
+
+.seat.selected {
+    background-color: #4CAF50;
+    color: white;
+}
+
+.aisle {
+    width: 20px;
+}
+
+#seat-map {
+    text-align: center;
+    margin: 20px 0;
+}
+
+.cloud-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none; /* Allow clicks to pass through */
+}
+
+.cloud {
+    position: absolute;
+    width: 100px;
+    height: 60px;
+    background: rgba(255, 255, 255, 0.8);
+    border-radius: 50%;
+    opacity: 0; /* Start invisible */
+    transition: opacity 0.5s ease;
+    filter: blur(5px);
+}
+
+#runway {
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    width: 200px;
+    height: 20px;
+    background: #555;
+    transform: translateX(-50%);
+    opacity: 1; /* Start fully visible */
+    transition: opacity 0.3s ease;
+}
+
+.exhaust {
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    background: rgba(255, 255, 255, 0.5);
+    border-radius: 50%;
+    filter: blur(3px);
+    opacity: 0; /* Start invisible */
+    transition: opacity 0.5s ease;
+} 

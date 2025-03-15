@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Train Simulator</title>
+    <link rel="stylesheet" href="css/train_simulator.css">
+</head>
+<body>
+    <div class="simulator-container">
+        <div id="track"></div>
+        <div id="platform"></div>
+        <div id="train"></div>
+        <div id="controls">
+            <button id="start">Start Train</button>
+            <button id="stop">Stop Train</button>
+            <button id="accelerate">Accelerate</button>
+            <button id="decelerate">Decelerate</button>
+        </div>
+        <div id="status">
+            <div>Speed: <span id="speed">0</span> km/h</div>
+            <div>Distance: <span id="distance">0</span> km</div>
+        </div>
+    </div>
+    <script src="js/train_simulator.js"></script>
+</body>
+</html> 

@@ -1,0 +1,65 @@
+<body>
+    <h2>Virtual Airplane Simulator</h2>
+
+    <!-- Section header -->
+    <div><tr></tr> <!-- This is to add rows in the display area -->
+ 
+    <!-- Display section with seats -->
+    <tbody>
+        <!-- Each row represents a section of the airplane -->
+        <tr>
+            <!-- Ground Section -->
+            <td>
+                <img src="ground_aisle_vantage_pole_right.png" alt="Ground_aisle">
+            </td>
+
+            <!-- Elevation Section -->
+            <td>
+                <img src="elevation_vantage_pole_right.png" alt="Elevation">
+            </td>
+
+            <!-- Air Quality Section -->
+            <td>
+                <img src="air_quality_occupancy_map.png" alt="Air Quality Occupancy Mapping">
+            </td>
+
+            <!-- Runway Section -->
+            <td>
+                <img src="runway_info.png" alt="Runway Information">
+            </td>
+        </tr>
+    </tbody>
+
+    <!-- User Input Section -->
+    <tr>
+        <!-- Passenger Selection -->
+        <td>
+            <input type="text"
+             name="passenger_name"
+             placeholder="Enter your name."
+             id="passenger_id">
+            <br><br>
+            <!-- Interactive Elements -->
+            <input type="button"
+            onclick="change_seats(passenger_id)"
+            lang="EN">
+        </td>
+
+    <!-- Reset Input -->
+    <tr>
+        <div class="alert alert警告" role="alert">
+            <h3>Passenger Selection Confirmation</h3>
+            <p>You've successfully inputted passenger information.</p>
+        </div>
+    </tr>
+
+    <!-- Instructions Section -->
+    <style>
+        . alerts {
+            color: red;
+            font-size: 0.9em;
+            margin-bottom: 20px;
+        }
+    </style>
+</body>
+</html>
