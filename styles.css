@@ -147,7 +147,11 @@ nav ul li a:hover, nav ul li a.active {
 }
 
 #game3-img {
-    background-image: url('https://images.unsplash.com/photo-1472566316349-bce77aa2a778?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');
+    background-image: url('images/whalewheel.jpg');
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-color: #121212;
+    background-position: center;
 }
 
 #game4-img {
