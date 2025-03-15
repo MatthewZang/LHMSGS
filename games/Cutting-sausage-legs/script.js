@@ -57,8 +57,8 @@ document.addEventListener('DOMContentLoaded', () => {
     let lastMoveY = 0;
     let sausageMovementInterval;
     let panicMode = false;
-    let gameTimeInSeconds = 120; // 2 minutes
-    let timeLeft = gameTimeInSeconds;
+    let gameTime = 240; // 4 minutes (240 seconds)
+    let timeLeft = gameTime;
     let timerInterval;
     let canCut = true;
     let spaceHeld = false;
@@ -112,7 +112,7 @@ document.addEventListener('DOMContentLoaded', () => {
         score = 0;
         remainingSausagePeople = totalSausagePeople;
         panicMode = false;
-        timeLeft = gameTimeInSeconds;
+        timeLeft = gameTime;
         
         // Update UI
         scoreElement.textContent = score;
@@ -132,7 +132,7 @@ document.addEventListener('DOMContentLoaded', () => {
             case 'frenzy':
                 // SUPER SPEED EVERYTHING
                 playerSpeed = 16;
-                gameTimeInSeconds = 60;
+                gameTime = 60;
                 totalSausagePeople = 1000;
                 difficultyMultiplier = 2;
                 frenzyMultiplier = 1;
@@ -144,7 +144,7 @@ document.addEventListener('DOMContentLoaded', () => {
             case 'boss':
                 // Boss battle setup
                 playerSpeed = 10;
-                gameTimeInSeconds = 180; // 3 minutes to defeat the boss
+                gameTime = 180; // 3 minutes to defeat the boss
                 totalSausagePeople = 1; // Just the boss
                 remainingSausagePeople = 1;
                 bossHealth = 100;
@@ -155,7 +155,7 @@ document.addEventListener('DOMContentLoaded', () => {
             case 'survival':
                 // Endless waves of chaos
                 totalSausagePeople = 200;  // Start with 200 sausages
-                gameTimeInSeconds = Infinity;
+                gameTime = Infinity;
                 difficultyMultiplier = 1;
                 waveNumber = 1;
                 document.body.classList.add('survival-mode');
@@ -173,7 +173,7 @@ document.addEventListener('DOMContentLoaded', () => {
             
             default: // classic mode
                 playerSpeed = 8;
-                gameTimeInSeconds = 120;
+                gameTime = 240;
                 totalSausagePeople = 500;
                 difficultyMultiplier = 1;
                 document.body.classList.remove('rainbow-mode');
