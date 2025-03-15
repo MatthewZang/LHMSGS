@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ULTIMATE SAUSAGE APOCALYPSE!!!</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="game-container">
+        <h1>ULTIMATE SAUSAGE APOCALYPSE!!!</h1>
+        <div class="score-container">
+            <span>Score: <span id="score">0</span></span>
+            <span>Sausage People Left: <span id="sausage-count">500</span></span>
+            <span>Time Left: <span id="time-left">2:00</span></span>
+        </div>
+        <div class="controls">
+            <button id="start-btn">Start Game</button>
+            <button id="reset-btn" disabled>Reset Game</button>
+            <a href="../../index.html" class="back-btn">Back to Games</a>
+            <div class="mode-select">
+                <button class="mode-btn" data-mode="classic">Classic Mode</button>
+                <button class="mode-btn" data-mode="frenzy">Frenzy Mode</button>
+                <button class="mode-btn" data-mode="boss">Boss Battle</button>
+                <button class="mode-btn" data-mode="survival">Survival Mode</button>
+            </div>
+        </div>
+        <div class="game-area">
+            <div id="player">
+                <div class="player-body"></div>
+                <div class="knife-hand"></div>
+            </div>
+            <div id="cut-button" class="hidden">Cut Legs (Space)</div>
+            <!-- Sausage people will be generated via JavaScript -->
+        </div>
+        <div class="instructions">
+            <p>Use WASD or Arrow Keys to move. Get close to a sausage person and press Space or click "Cut Legs" to cut their legs.</p>
+            <p><strong>WARNING: 500 SAUSAGES WILL RUN FOR THEIR LIVES!!! You have 2 minutes to cut them all!</strong></p>
+            <p><em>Hold space to cut repeatedly!</em></p>
+        </div>
+        <div id="game-over" class="hidden">
+            <h2>Game Over!</h2>
+            <p>Final Score: <span id="final-score">0</span></p>
+            <p>Sausages Remaining: <span id="remaining-sausages">0</span></p>
+            <button id="play-again-btn">Play Again</button>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html> 
