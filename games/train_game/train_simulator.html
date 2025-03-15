@@ -5,97 +5,23 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Train Simulator</title>
     <link rel="stylesheet" href="css/train_simulator.css">
-    <style>
-        body {
-            margin: 0;
-            padding: 0;
-            background-color: #121212;
-            color: #ffffff;
-            font-family: 'Arial', sans-serif;
-        }
-        
-        .simulator-container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 20px;
-            text-align: center;
-        }
-        
-        .simulator-image {
-            width: 100%;
-            max-width: 1000px;
-            margin: 20px auto;
-            border-radius: 10px;
-            box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
-        }
-        
-        h1 {
-            color: #ff4757;
-            margin-bottom: 20px;
-        }
-        
-        p {
-            margin-bottom: 30px;
-            line-height: 1.6;
-        }
-        
-        .btn {
-            display: inline-block;
-            background: #ff4757;
-            color: #ffffff;
-            padding: 10px 20px;
-            border-radius: 5px;
-            font-weight: bold;
-            text-transform: uppercase;
-            transition: background 0.3s ease;
-            margin: 10px;
-            cursor: pointer;
-        }
-        
-        .btn:hover {
-            background: #ff6b81;
-        }
-        
-        .controls {
-            display: flex;
-            justify-content: center;
-            flex-wrap: wrap;
-            gap: 10px;
-            margin-top: 20px;
-        }
-        
-        .back-link {
-            display: block;
-            margin-top: 30px;
-            color: #ff4757;
-            text-decoration: underline;
-        }
-    </style>
 </head>
 <body>
     <div class="simulator-container">
-        <h1>Train Simulator</h1>
-        <p>Control a realistic train with our advanced locomotive control stand. Manage speed, direction, and braking systems as you navigate through various scenarios.</p>
-        
-        <!-- This is where we'll display the locomotive control stand image -->
-        <img src="locomotive_control_stand.jpg" alt="Locomotive Control Stand" class="simulator-image">
-        
-        <div class="controls">
-            <button class="btn" id="start">Start Train</button>
-            <button class="btn" id="stop">Stop Train</button>
-            <button class="btn" id="accelerate">Accelerate</button>
-            <button class="btn" id="decelerate">Decelerate</button>
-            <button class="btn" id="emergency">Emergency Brake</button>
+        <div id="track"></div>
+        <div id="platform"></div>
+        <div id="train"></div>
+        <div id="controls">
+            <button id="start">Start Train</button>
+            <button id="stop">Stop Train</button>
+            <button id="accelerate">Accelerate</button>
+            <button id="decelerate">Decelerate</button>
         </div>
-        
         <div id="status">
             <div>Speed: <span id="speed">0</span> km/h</div>
             <div>Distance: <span id="distance">0</span> km</div>
         </div>
-        
-        <a href="../../index.html" class="back-link">Back to Games</a>
     </div>
-    
     <script src="js/train_simulator.js"></script>
 </body>
 </html> 
