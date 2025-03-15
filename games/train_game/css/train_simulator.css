@@ -1,16 +1,117 @@
+/* Train Simulator CSS */
 body {
-    font-family: Arial, sans-serif;
-    background-color: #87CEEB; /* Sky color */
     margin: 0;
     padding: 0;
+    background-color: #121212;
+    color: #ffffff;
+    font-family: 'Arial', sans-serif;
 }
 
 .simulator-container {
-    position: relative;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+    text-align: center;
+}
+
+.simulator-image {
     width: 100%;
-    height: 400px;
-    overflow: hidden;
-    background-color: #87CEEB; /* Sky color */
+    max-width: 1000px;
+    margin: 20px auto;
+    border-radius: 10px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+}
+
+h1 {
+    color: #ff4757;
+    margin-bottom: 20px;
+}
+
+p {
+    margin-bottom: 30px;
+    line-height: 1.6;
+}
+
+.btn {
+    display: inline-block;
+    background: #ff4757;
+    color: #ffffff;
+    padding: 10px 20px;
+    border-radius: 5px;
+    font-weight: bold;
+    text-transform: uppercase;
+    transition: background 0.3s ease;
+    margin: 10px;
+    cursor: pointer;
+    border: none;
+}
+
+.btn:hover {
+    background: #ff6b81;
+}
+
+.btn:disabled {
+    background: #666;
+    cursor: not-allowed;
+}
+
+.controls {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+#status {
+    margin-top: 20px;
+    font-size: 1.2rem;
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+}
+
+.back-link {
+    display: block;
+    margin-top: 30px;
+    color: #ff4757;
+    text-decoration: underline;
+}
+
+/* Notification styles */
+.notification {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    padding: 15px 20px;
+    background-color: #333;
+    color: white;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+    z-index: 1000;
+    animation: fadeIn 0.3s, fadeOut 0.3s 2.7s;
+}
+
+.notification.info {
+    background-color: #2980b9;
+}
+
+.notification.error {
+    background-color: #e74c3c;
+}
+
+.notification.success {
+    background-color: #27ae60;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeOut {
+    from { opacity: 1; transform: translateY(0); }
+    to { opacity: 0; transform: translateY(20px); }
 }
 
 .viewport {

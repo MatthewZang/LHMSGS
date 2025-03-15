@@ -151,7 +151,10 @@ nav ul li a:hover, nav ul li a.active {
 }
 
 #game4-img {
-    background-image: url('https://images.unsplash.com/photo-1473862170180-84427c485aca?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');
+    background-image: url('games/train_game/locomotive_control_stand.jpg');
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-color: #121212;
 }
 
 .game-card h3 {
