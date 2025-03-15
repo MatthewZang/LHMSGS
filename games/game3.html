@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Whale Wheel</title>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            font-family: Arial, sans-serif;
+            background-color: white;
+        }
+        
+        #scoreboard {
+            border: 2px solid black;
+            padding: 10px;
+            margin: 20px;
+            width: 150px;
+            text-align: left;
+        }
+        
+        #wheel-container {
+            position: relative;
+            width: 400px;
+            height: 400px;
+        }
+        
+        #wheel {
+            width: 100%;
+            height: 100%;
+        }
+        
+        #pointer {
+            position: absolute;
+            top: -20px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 0;
+            height: 0;
+            border-left: 15px solid transparent;
+            border-right: 15px solid transparent;
+            border-top: 30px solid red;
+        }
+        
+        button {
+            margin: 20px;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        #reset-button {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            background-color: #ff4444;
+            color: white;
+            border: none;
+            border-radius: 5px;
+        }
+
+        #reset-button:hover {
+            background-color: #cc0000;
+        }
+    </style>
+</head>
+<body>
+    <div id="scoreboard">
+        <div>SCORE:</div>
+        <div id="score">$0</div>
+    </div>
+    
+    <div id="wheel-container">
+        <div id="pointer"></div>
+        <canvas id="wheel" width="400" height="400"></canvas>
+    </div>
+    
+    <button onclick="spinWheel()" id="spinButton">Click to spin the wheel!</button>
+    <button id="reset-button" onclick="resetGame()">Reset Game</button>
+
+    <script>
+        const sections = [
+            { text: "$1000", color: "rgb(255, 0, 255)" },   // Top
+            { text: "LOSE TURN", color: "rgb(139, 0, 0)" },
+            { text: "BANKRUPT", color: "rgb(255, 0, 0)" },
+            { text: "$100", color: "rgb(255, 255, 0)" },
+            { text: "$200", color: "rgb(0, 255, 0)" },
+            { text: "$300", color: "rgb(0, 255, 255)" },
+            { text: "$500", color: "rgb(255, 140, 0)" }
+        ];
+
+        let score = 0;
+        let isSpinning = false;
+        let currentAngle = 0;
+        
+        const canvas = document.getElementById('wheel');
+        const ctx = canvas.getContext('2d');
+        const centerX = canvas.width / 2;
+        const centerY = canvas.height / 2;
+        const radius = Math.min(centerX, centerY) - 10;
+
+        function drawWheel() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            const sectionAngle = (2 * Math.PI) / sections.length;
+            
+            for (let i = 0; i < sections.length; i++) {
+                // Draw section
+                ctx.beginPath();
+                ctx.moveTo(centerX, centerY);
+                ctx.arc(centerX, centerY, radius, 
+                    i * sectionAngle + currentAngle, 
+                    (i + 1) * sectionAngle + currentAngle);
+                ctx.closePath();
+                ctx.fillStyle = sections[i].color;
+                ctx.fill();
+                ctx.strokeStyle = 'white';
+                ctx.stroke();
+                
+                // Draw text
+                ctx.save();
+                ctx.translate(centerX, centerY);
+                ctx.rotate(i * sectionAngle + sectionAngle / 2 + currentAngle);
+                ctx.textAlign = 'right';
+                ctx.fillStyle = 'white';
+                ctx.font = 'bold 20px Arial';
+                ctx.fillText(sections[i].text, radius * 0.8, 5);
+                ctx.restore();
+            }
+            
+            // Draw center circle
+            ctx.beginPath();
+            ctx.arc(centerX, centerY, 15, 0, 2 * Math.PI);
+            ctx.fillStyle = 'white';
+            ctx.fill();
+            ctx.strokeStyle = 'black';
+            ctx.stroke();
+        }
+
+        function spinWheel() {
+            if (isSpinning) return;
+            
+            isSpinning = true;
+            document.getElementById('spinButton').disabled = true;
+            
+            const spinAngle = 2 * Math.PI * (5 + Math.random() * 5);
+            const startAngle = currentAngle;
+            const duration = 3000;
+            const startTime = Date.now();
+            
+            function animate() {
+                const elapsed = Date.now() - startTime;
+                const progress = Math.min(elapsed / duration, 1);
+                
+                if (progress < 1) {
+                    const easeOut = 1 - Math.pow(1 - progress, 3);
+                    currentAngle = startAngle + (spinAngle * easeOut);
+                    drawWheel();
+                    requestAnimationFrame(animate);
+                } else {
+                    isSpinning = false;
+                    document.getElementById('spinButton').disabled = false;
+                    
+                    // Fixed section detection for pointer position
+                    const sectionAngle = (2 * Math.PI) / sections.length;
+                    let angle = (-currentAngle - Math.PI/2) % (2 * Math.PI);  // Changed to -Math.PI/2
+                    if (angle < 0) angle += 2 * Math.PI;
+                    const index = Math.floor(angle / sectionAngle);
+                    const result = sections[index];
+                    
+                    // Debug logging
+                    console.log('Final angle:', angle * 180 / Math.PI);
+                    console.log('Section index:', index);
+                    console.log('Value at pointer:', result.text);
+                    
+                    // Score update logic
+                    if (result.text === "BANKRUPT") {
+                        score = 0;
+                    } else if (result.text === "LOSE TURN") {
+                        // Keep current score
+                        console.log('Lost turn, keeping score at:', score);
+                    } else {
+                        // Add new value to existing score
+                        const newValue = parseInt(result.text.replace("$", ""));
+                        score += newValue;
+                        console.log('Adding:', newValue, 'New total:', score);
+                    }
+                    
+                    // Update score display
+                    document.getElementById('score').textContent = `$${score}`;
+                    drawWheel();
+                }
+            }
+            
+            animate();
+        }
+
+        function resetGame() {
+            score = 0;
+            document.getElementById('score').textContent = '$0';
+            currentAngle = 0;
+            drawWheel();
+            console.log('Game reset');
+        }
+
+        // Initial draw
+        drawWheel();
+    </script>
+</body>
+</html> 
