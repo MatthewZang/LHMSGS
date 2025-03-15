@@ -146,6 +146,10 @@ nav ul li a:hover, nav ul li a.active {
     background-image: url('https://images.unsplash.com/photo-1553481187-be93c21490a9?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');
 }
 
+#game3-img {
+    background-image: url('https://images.unsplash.com/photo-1472566316349-bce77aa2a778?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');
+}
+
 .game-card h3 {
     padding: 20px 20px 10px;
     font-size: 1.5rem;
