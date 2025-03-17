@@ -136,6 +136,14 @@ nav ul li a:hover, nav ul li a.active {
     height: 200px;
     background-size: cover;
     background-position: center;
+    transition: all 0.3s ease-out;
+    transform: scale(1.02);
+    filter: brightness(0.95);
+}
+
+.game-card:hover .game-img {
+    transform: scale(1.08);
+    filter: brightness(1.1);
 }
 
 #game1-img {
@@ -148,10 +156,11 @@ nav ul li a:hover, nav ul li a.active {
 
 #game3-img {
     background-image: url('images/whalewheel.jpg');
-    background-size: contain;
+    background-size: cover;
     background-repeat: no-repeat;
     background-color: #121212;
     background-position: center;
+    transform-origin: center;
 }
 
 #game4-img {
