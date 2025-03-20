@@ -188,6 +188,12 @@ nav ul li a:hover, nav ul li a.active {
     background-position: center;
 }
 
+#game8-img {
+    background-image: url('images/PokemonGame.jpeg');
+    background-size: cover;
+    background-position: center;
+}
+
 .game-card h3 {
     padding: 20px 20px 10px;
     font-size: 1.5rem;
