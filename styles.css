@@ -194,6 +194,13 @@ nav ul li a:hover, nav ul li a.active {
     background-position: center;
 }
 
+#game9-img {
+    background-image: url('images/snake-game.jpg');
+    background-size: cover;
+    background-position: center;
+    background-color: #121212;
+}
+
 .game-card h3 {
     padding: 20px 20px 10px;
     font-size: 1.5rem;
