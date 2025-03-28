@@ -215,6 +215,13 @@ nav ul li a:hover, nav ul li a.active {
     background-color: #121212;
 }
 
+#game12-img {
+    background-image: url('images/Eatpoopimage.png');
+    background-size: cover;
+    background-position: center;
+    background-color: #121212;
+}
+
 .game-card h3 {
     padding: 20px 20px 10px;
     font-size: 1.5rem;
