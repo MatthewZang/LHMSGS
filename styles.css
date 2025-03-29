@@ -226,6 +226,13 @@ nav ul li a:hover, nav ul li a.active {
     background-position: center;
 }
 
+#game14-img {
+    background-image: url('images/tank.jpg');
+    background-size: cover;
+    background-position: center;
+    background-color: #121212;
+}
+
 #game12-img {
     background-image: url('images/Eatpoopimage.png');
     background-size: cover;
