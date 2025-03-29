@@ -5,7 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>LHMS Game Studios</title>
     <link rel="stylesheet" href="styles.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" defer>
+    <!-- 添加预连接 -->
+    <link rel="preconnect" href="https://sterlingflau.github.io">
+    <link rel="preconnect" href="https://ke006.github.io">
+    <link rel="preconnect" href="https://leozhang2017.github.io">
+    <link rel="preconnect" href="https://matthewzang.github.io">
 </head>
 <body>
     <header>
@@ -33,8 +38,8 @@
     <section id="games">
         <h2>Our Games</h2>
         <div class="games-container">
-            <div class="game-card">
-                <div class="game-img" id="game1-img"></div>
+            <div class="game-card" loading="lazy">
+                <div class="game-img" id="game1-img" loading="lazy"></div>
                 <h3>Memory Match</h3>
                 <p>Test your memory by matching pairs of cards in this classic memory game!</p>
                 <a href="games/game1.html" class="btn">Play Game</a>
@@ -140,7 +145,5 @@
         </div>
         <p>&copy; 2023 LHMS Game Studios. All rights reserved.</p>
     </footer>
-
-    <script src="script.js"></script>
 </body>
 </html>
