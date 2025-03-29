@@ -212,7 +212,18 @@ nav ul li a:hover, nav ul li a.active {
     background-image: url('images/AirbusOAA.jpg');
     background-size: cover;
     background-position: center;
-    background-color: #121212;
+}
+
+#game12-img {
+    background-image: url('images/UNO.jpeg');
+    background-size: cover;
+    background-position: center;
+}
+
+#game13-img {
+    background-image: url('images/Spacedefenders.jpeg');
+    background-size: cover;
+    background-position: center;
 }
 
 #game12-img {
