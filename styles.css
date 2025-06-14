@@ -227,12 +227,26 @@ nav ul li a:hover, nav ul li a.active {
 }
 
 #game14-img {
+    background-image: url('images/tank.jpg');
+    background-size: cover;
+    background-position: center;
+    background-color: #121212;
+}
+
+#game15-img {
+    background-image: url('images/Eatpoopimage.png');
+    background-size: cover;
+    background-position: center;
+    background-color: #121212;
+}
+
+#game16-img {
     background-image: url('images/Horrorgame.png');
     background-size: cover;
     background-position: center;
 }
 
-#game15-img {
+#game17-img {
     background-image: url('images/hunter.png');
     background-size: cover;
     background-position: center;
