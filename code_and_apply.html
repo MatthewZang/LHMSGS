@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Code and Apply - LHMS Game Studios</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        .code-section {
+            background-color: #1a1a1a;
+            padding: 40px 20px;
+        }
+
+        .code-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            padding: 20px;
+        }
+
+        .code-card {
+            background-color: #2a2a2a;
+            border-radius: 10px;
+            padding: 25px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            transition: transform 0.3s ease;
+        }
+
+        .code-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .code-card h3 {
+            color: #ff4757;
+            margin-bottom: 15px;
+            font-size: 1.5rem;
+        }
+
+        .code-card p {
+            color: #cccccc;
+            margin-bottom: 20px;
+            line-height: 1.6;
+        }
+
+        .code-card .btn {
+            display: inline-block;
+            background: #ff4757;
+            color: #ffffff;
+            padding: 10px 20px;
+            border-radius: 5px;
+            text-decoration: none;
+            transition: background 0.3s ease;
+        }
+
+        .code-card .btn:hover {
+            background: #ff6b81;
+        }
+
+        .code-card i {
+            font-size: 2rem;
+            color: #ff4757;
+            margin-bottom: 15px;
+        }
+
+        .apply-section {
+            background-color: #121212;
+            padding: 40px 20px;
+        }
+
+        .apply-container {
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .apply-form {
+            background-color: #2a2a2a;
+            padding: 30px;
+            border-radius: 10px;
+            margin-top: 30px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+            text-align: left;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: #ffffff;
+        }
+
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            width: 100%;
+            padding: 12px;
+            border: none;
+            border-radius: 5px;
+            background-color: #1a1a1a;
+            color: #ffffff;
+        }
+
+        .form-group textarea {
+            min-height: 150px;
+            resize: vertical;
+        }
+
+        .submit-btn {
+            background: #ff4757;
+            color: #ffffff;
+            padding: 12px 30px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1.1rem;
+            transition: background 0.3s ease;
+        }
+
+        .submit-btn:hover {
+            background: #ff6b81;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo">
+            <h1>LHMS Game Studios</h1>
+        </div>
+        <nav>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="index.html#games">Games</a></li>
+                <li><a href="index.html#about">About</a></li>
+                <li><a href="index.html#contact">Contact</a></li>
+                <li><a href="code_and_apply.html" class="active">Code & Apply</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section class="code-section">
+        <h2>Learn to Code</h2>
+        <div class="code-container">
+            <div class="code-card">
+                <i class="fas fa-code"></i>
+                <h3>Game Development</h3>
+                <p>Learn the fundamentals of game development using modern technologies and frameworks. Start your journey to becoming a game developer!</p>
+                <a href="#" class="btn">Start Learning</a>
+            </div>
+            <div class="code-card">
+                <i class="fas fa-laptop-code"></i>
+                <h3>Web Development</h3>
+                <p>Master web development with HTML, CSS, and JavaScript. Build responsive and interactive websites from scratch.</p>
+                <a href="#" class="btn">Start Learning</a>
+            </div>
+            <div class="code-card">
+                <i class="fas fa-mobile-alt"></i>
+                <h3>Mobile Development</h3>
+                <p>Create mobile applications for iOS and Android platforms. Learn the latest mobile development technologies.</p>
+                <a href="#" class="btn">Start Learning</a>
+            </div>
+        </div>
+    </section>
+
+    <section class="apply-section">
+        <h2>Join Our Team</h2>
+        <div class="apply-container">
+            <p>We're always looking for talented individuals to join our team. If you're passionate about gaming and technology, we'd love to hear from you!</p>
+            <div class="apply-form">
+                <form id="application-form">
+                    <div class="form-group">
+                        <label for="name">Full Name</label>
+                        <input type="text" id="name" name="name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input type="email" id="email" name="email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="position">Position</label>
+                        <select id="position" name="position" required>
+                            <option value="">Select a position</option>
+                            <option value="game-developer">Game Developer</option>
+                            <option value="web-developer">Web Developer</option>
+                            <option value="ui-designer">UI Designer</option>
+                            <option value="game-designer">Game Designer</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="experience">Experience</label>
+                        <textarea id="experience" name="experience" required></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="portfolio">Portfolio URL</label>
+                        <input type="url" id="portfolio" name="portfolio">
+                    </div>
+                    <button type="submit" class="submit-btn">Submit Application</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="social-links">
+            <a href="#"><i class="fab fa-facebook"></i></a>
+            <a href="#"><i class="fab fa-twitter"></i></a>
+            <a href="#"><i class="fab fa-instagram"></i></a>
+            <a href="#"><i class="fab fa-youtube"></i></a>
+        </div>
+        <p>&copy; 2023 LHMS Game Studios. All rights reserved.</p>
+    </footer>
+</body>
+</html> 
