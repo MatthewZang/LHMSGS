@@ -23,28 +23,52 @@ ul {
 
 .btn {
     display: inline-block;
-    background: #ff4757;
+    background: linear-gradient(135deg, #ff4757, #ff6b81);
     color: #ffffff;
-    padding: 10px 20px;
-    border-radius: 5px;
+    padding: 12px 25px;
+    border-radius: 25px;
     font-weight: bold;
     text-transform: uppercase;
-    transition: background 0.3s ease;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(255, 71, 87, 0.3);
 }
 
 .btn:hover {
-    background: #ff6b81;
+    background: linear-gradient(135deg, #ff6b81, #ff4757);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(255, 71, 87, 0.4);
 }
 
 section {
-    padding: 80px 20px;
+    padding: 100px 20px;
 }
 
 h2 {
     text-align: center;
-    margin-bottom: 40px;
-    font-size: 2.5rem;
+    margin-bottom: 50px;
+    font-size: 3rem;
     color: #ff4757;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+    position: relative;
+}
+
+h2::after {
+    content: '';
+    position: absolute;
+    bottom: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80px;
+    height: 3px;
+    background: linear-gradient(90deg, #ff4757, #ff6b81);
+    border-radius: 2px;
+}
+
+h3 {
+    color: #ff4757;
+    font-size: 1.8rem;
+    margin: 30px 0 15px 0;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
 }
 
 /* Header */
@@ -53,15 +77,24 @@ header {
     justify-content: space-between;
     align-items: center;
     padding: 20px 50px;
-    background-color: rgba(0, 0, 0, 0.8);
+    background: linear-gradient(135deg, rgba(0, 0, 0, 0.95), rgba(18, 18, 18, 0.95));
     position: fixed;
     width: 100%;
     z-index: 100;
+    backdrop-filter: blur(10px);
+    box-shadow: 0 2px 20px rgba(0, 0, 0, 0.3);
 }
 
 .logo h1 {
-    font-size: 1.8rem;
+    font-size: 2rem;
     color: #ff4757;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+    transition: all 0.3s ease;
+}
+
+.logo h1:hover {
+    transform: scale(1.05);
+    text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.7);
 }
 
 nav ul {
@@ -74,11 +107,16 @@ nav ul li {
 
 nav ul li a {
     font-weight: bold;
-    transition: color 0.3s ease;
+    transition: all 0.3s ease;
+    padding: 8px 16px;
+    border-radius: 20px;
+    position: relative;
 }
 
 nav ul li a:hover, nav ul li a.active {
     color: #ff4757;
+    background: rgba(255, 71, 87, 0.1);
+    transform: translateY(-2px);
 }
 
 /* Hero Section */
@@ -87,6 +125,7 @@ nav ul li a:hover, nav ul li a.active {
     background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('https://images.unsplash.com/photo-1511512578047-dfb367046420?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');
     background-size: cover;
     background-position: center;
+    background-attachment: fixed;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -94,56 +133,103 @@ nav ul li a:hover, nav ul li a.active {
 }
 
 .hero-content {
-    max-width: 800px;
+    max-width: 900px;
+    animation: fadeInUp 1s ease-out;
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
 .hero-content h2 {
-    font-size: 3.5rem;
-    margin-bottom: 20px;
+    font-size: 4rem;
+    margin-bottom: 25px;
+    text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.8);
 }
 
 .hero-content p {
-    font-size: 1.5rem;
-    margin-bottom: 30px;
+    font-size: 1.6rem;
+    margin-bottom: 40px;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
 }
 
 /* Games Section */
 #games {
-    background-color: #1a1a1a;
+    background: linear-gradient(135deg, #1a1a1a, #2a2a2a);
 }
 
 .games-container {
-    display: flex;
-    justify-content: center;
-    flex-wrap: wrap;
-    gap: 30px;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 40px;
+    max-width: 1400px;
+    margin: 0 auto;
 }
 
 .game-card {
-    background-color: #2a2a2a;
-    border-radius: 10px;
+    background: linear-gradient(135deg, #2a2a2a, #3a3a3a);
+    border-radius: 15px;
     overflow: hidden;
-    width: 300px;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+    transition: all 0.4s ease;
+    position: relative;
+}
+
+.game-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, #ff4757, #ff6b81);
+    transform: scaleX(0);
     transition: transform 0.3s ease;
 }
 
+.game-card:hover::before {
+    transform: scaleX(1);
+}
+
 .game-card:hover {
-    transform: translateY(-10px);
+    transform: translateY(-15px) scale(1.02);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6);
 }
 
 .game-img {
-    height: 200px;
+    height: 220px;
     background-size: cover;
     background-position: center;
-    transition: all 0.3s ease-out;
-    transform: scale(1.02);
-    filter: brightness(0.95);
+    transition: all 0.4s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.game-img::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(45deg, rgba(255, 71, 87, 0.2), transparent);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.game-card:hover .game-img::after {
+    opacity: 1;
 }
 
 .game-card:hover .game-img {
-    transform: scale(1.08);
-    filter: brightness(1.1);
+    transform: scale(1.1);
 }
 
 #game1-img {
@@ -253,87 +339,173 @@ nav ul li a:hover, nav ul li a.active {
 }
 
 .game-card h3 {
-    padding: 20px 20px 10px;
-    font-size: 1.5rem;
+    padding: 25px 25px 15px;
+    font-size: 1.6rem;
     color: #ff4757;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
 }
 
 .game-card p {
-    padding: 0 20px 20px;
+    padding: 0 25px 20px;
     color: #cccccc;
+    line-height: 1.6;
 }
 
 .game-card .btn {
-    margin: 0 20px 20px;
+    margin: 0 25px 25px;
+    font-size: 0.9rem;
+    padding: 10px 20px;
 }
 
 /* About Section */
 #about {
-    background-color: #121212;
-    text-align: center;
+    background: linear-gradient(135deg, #121212, #1a1a1a);
 }
 
-#about p {
-    max-width: 800px;
+.about-content {
+    max-width: 1000px;
     margin: 0 auto;
-    font-size: 1.2rem;
+}
+
+.about-text {
+    background: rgba(42, 42, 42, 0.3);
+    padding: 40px;
+    border-radius: 15px;
+    backdrop-filter: blur(10px);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+}
+
+.about-text p {
+    font-size: 1.1rem;
     color: #cccccc;
+    margin-bottom: 20px;
+    line-height: 1.8;
+}
+
+.about-stats {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 30px;
+    margin: 40px 0;
+    padding: 30px;
+    background: rgba(255, 71, 87, 0.1);
+    border-radius: 10px;
+}
+
+.stat {
+    text-align: center;
+    padding: 20px;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 10px;
+    transition: transform 0.3s ease;
+}
+
+.stat:hover {
+    transform: translateY(-5px);
+}
+
+.stat h4 {
+    font-size: 2.5rem;
+    color: #ff4757;
+    margin-bottom: 10px;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.stat p {
+    color: #ffffff;
+    font-weight: bold;
+    margin: 0;
 }
 
 /* Contact Section */
 #contact {
-    background-color: #1a1a1a;
+    background: linear-gradient(135deg, #1a1a1a, #2a2a2a);
 }
 
-#contact-form {
-    max-width: 600px;
+#comment-form {
+    max-width: 800px;
     margin: 0 auto;
-    display: flex;
-    flex-direction: column;
+    background: rgba(42, 42, 42, 0.3);
+    padding: 40px;
+    border-radius: 15px;
+    backdrop-filter: blur(10px);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
 }
 
-#contact-form input, #contact-form textarea {
-    margin-bottom: 20px;
-    padding: 15px;
-    border-radius: 5px;
-    border: none;
-    background-color: #2a2a2a;
+.form-group {
+    margin-bottom: 25px;
+}
+
+#comment-form label {
+    display: block;
     color: #ffffff;
+    font-weight: bold;
+    margin-bottom: 10px;
+    font-size: 1.1rem;
 }
 
-#contact-form textarea {
-    min-height: 150px;
+#comment-form input, 
+#comment-form textarea {
+    width: 100%;
+    padding: 15px 20px;
+    border-radius: 10px;
+    border: 2px solid transparent;
+    background: rgba(26, 26, 26, 0.8);
+    color: #ffffff;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+}
+
+#comment-form input:focus, 
+#comment-form textarea:focus {
+    outline: none;
+    border-color: #ff4757;
+    background: rgba(26, 26, 26, 0.9);
+    transform: translateY(-2px);
+}
+
+#comment-form textarea {
     resize: vertical;
 }
 
-#contact-form .btn {
-    align-self: flex-start;
+#comment-form .btn {
+    display: block;
+    width: 100%;
+    text-align: center;
+    font-size: 1.2rem;
+    padding: 15px 30px;
 }
 
 /* Footer */
 footer {
-    background-color: #0a0a0a;
-    padding: 30px 20px;
+    background: linear-gradient(135deg, #0a0a0a, #1a1a1a);
+    padding: 40px 20px;
     text-align: center;
 }
 
 .social-links {
-    margin-bottom: 20px;
+    margin-bottom: 30px;
 }
 
 .social-links a {
     display: inline-block;
-    margin: 0 10px;
-    font-size: 1.5rem;
-    transition: color 0.3s ease;
+    margin: 0 15px;
+    font-size: 1.8rem;
+    transition: all 0.3s ease;
+    padding: 10px;
+    border-radius: 50%;
+    background: rgba(255, 71, 87, 0.1);
 }
 
 .social-links a:hover {
     color: #ff4757;
+    transform: translateY(-3px) scale(1.1);
+    background: rgba(255, 71, 87, 0.2);
 }
 
 footer p {
     color: #777777;
+    font-size: 1rem;
 }
 
 /* Responsive Design */
@@ -345,10 +517,12 @@ footer p {
     
     nav ul {
         margin-top: 20px;
+        flex-wrap: wrap;
+        justify-content: center;
     }
     
     nav ul li {
-        margin: 0 10px;
+        margin: 5px 10px;
     }
     
     .hero-content h2 {
@@ -360,7 +534,20 @@ footer p {
     }
     
     .games-container {
-        flex-direction: column;
-        align-items: center;
+        grid-template-columns: 1fr;
+        gap: 30px;
+    }
+    
+    .about-stats {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+    
+    h2 {
+        font-size: 2.5rem;
+    }
+    
+    section {
+        padding: 60px 20px;
     }
 } 

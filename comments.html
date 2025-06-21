@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Community Comments - LHMS Game Studios</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        body {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            background: linear-gradient(135deg, #1a1a1a, #2a2a2a);
+        }
+
+        .password-gate {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.95);
+            z-index: 1001;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: opacity 0.5s ease;
+        }
+
+        .password-modal {
+            background: #2a2a2a;
+            padding: 40px;
+            border-radius: 15px;
+            text-align: center;
+            max-width: 400px;
+            width: 90%;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+        }
+
+        .password-modal h2 {
+            color: #ff4757;
+            margin-bottom: 20px;
+        }
+
+        .password-modal p {
+            color: #cccccc;
+            margin-bottom: 25px;
+        }
+
+        #password-input {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #1a1a1a;
+            border-radius: 8px;
+            background: #121212;
+            color: #ffffff;
+            font-size: 1rem;
+            margin-bottom: 20px;
+        }
+
+        #password-error {
+            color: #ff6b81;
+            min-height: 20px;
+            margin-bottom: 10px;
+        }
+
+        .main-content {
+            display: none;
+            width: 100%;
+            padding-top: 100px; /* Space for fixed header */
+        }
+
+        .comments-section {
+            padding: 80px 20px;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .comment-form-container,
+        .comments-feed-container {
+            background: rgba(42, 42, 42, 0.3);
+            padding: 40px;
+            border-radius: 15px;
+            margin-bottom: 40px;
+        }
+
+        .comment-form label {
+            display: block;
+            margin-bottom: 10px;
+            font-weight: bold;
+        }
+
+        .comment-form input,
+        .comment-form textarea {
+            width: 100%;
+            padding: 15px;
+            border-radius: 10px;
+            border: 2px solid transparent;
+            background: rgba(26, 26, 26, 0.8);
+            color: #ffffff;
+            margin-bottom: 20px;
+        }
+
+        .comment-form input:focus,
+        .comment-form textarea:focus {
+            outline: none;
+            border-color: #ff4757;
+        }
+
+
+        .comment-card {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            border-left: 4px solid #ff4757;
+        }
+
+        .comment-author {
+            font-weight: bold;
+            color: #ff4757;
+            margin-bottom: 5px;
+        }
+
+        .comment-date {
+            font-size: 0.8rem;
+            color: #777;
+            margin-bottom: 10px;
+        }
+
+        .comment-body {
+            color: #cccccc;
+        }
+
+        #no-comments {
+            text-align: center;
+            color: #777;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="password-gate">
+        <div class="password-modal">
+            <h2><i class="fas fa-lock"></i> Protected Area</h2>
+            <p>This section is for community members only. Please enter the password to continue.</p>
+            <input type="password" id="password-input" placeholder="Password">
+            <button id="password-submit" class="btn">Unlock</button>
+            <p id="password-error"></p>
+        </div>
+    </div>
+
+    <div class="main-content">
+        <header>
+            <div class="logo">
+                <h1>LHMS Game Studios</h1>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="about us/aboutus.html">About</a></li>
+                    <li><a href="code_and_apply.html">Code & Apply</a></li>
+                    <li><a href="comments.html" class="active">Comments</a></li>
+                </ul>
+            </nav>
+        </header>
+
+        <section class="comments-section">
+            <div class="container">
+                <div class="comments-feed-container">
+                    <h2><i class="fas fa-comments"></i> Live Comments</h2>
+                    <div id="comments-feed">
+                        <!-- Example Comment -->
+                        <div class="comment-card">
+                            <p class="comment-author">GameFan123</p>
+                            <p class="comment-date">October 26, 2025</p>
+                            <p class="comment-body">This is an amazing collection of games! The Hunter Games is my favorite so far. Keep up the great work, LHMS team!</p>
+                        </div>
+                        <div class="comment-card">
+                            <p class="comment-author">CreativeCoder</p>
+                            <p class="comment-date">October 25, 2025</p>
+                            <p class="comment-body">Just checked out the "Code & Apply" page. It's incredibly well-designed. I'm thinking about applying for the Game Developer position!</p>
+                        </div>
+                    </div>
+                    <p id="no-comments" style="display: none;">No comments have been posted yet.</p>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const passwordGate = document.querySelector('.password-gate');
+            const passwordInput = document.getElementById('password-input');
+            const passwordSubmit = document.getElementById('password-submit');
+            const passwordError = document.getElementById('password-error');
+            const mainContent = document.querySelector('.main-content');
+            const correctPassword = 'LHMSGS';
+
+            const unlockPage = () => {
+                const enteredPassword = passwordInput.value;
+                if (enteredPassword === correctPassword) {
+                    passwordGate.style.opacity = '0';
+                    setTimeout(() => {
+                        passwordGate.style.display = 'none';
+                        mainContent.style.display = 'block';
+                    }, 500);
+                } else {
+                    passwordError.textContent = 'Incorrect password. Please try again.';
+                    passwordInput.style.borderColor = '#ff6b81';
+                }
+            };
+
+            passwordSubmit.addEventListener('click', unlockPage);
+            passwordInput.addEventListener('keyup', (event) => {
+                if (event.key === 'Enter') {
+                    unlockPage();
+                }
+            });
+
+            // Load comments from Local Storage
+            const commentsFeed = document.getElementById('comments-feed');
+            const noCommentsMessage = document.getElementById('no-comments');
+            const exampleComments = commentsFeed.innerHTML;
+
+            const loadComments = () => {
+                const comments = JSON.parse(localStorage.getItem('lhms_comments')) || [];
+                
+                if (comments.length > 0) {
+                    // Clear the feed of example comments
+                    commentsFeed.innerHTML = '';
+                    noCommentsMessage.style.display = 'none';
+
+                    // Sort comments chronologically (oldest first)
+                    comments.sort((a, b) => new Date(a.date) - new Date(b.date));
+
+                    // Add sorted comments to the feed
+                    comments.forEach(comment => addCommentToFeed(comment));
+                } else {
+                    // No saved comments, so the default examples are shown.
+                    if(commentsFeed.children.length === 0){
+                        noCommentsMessage.style.display = 'block';
+                    }
+                }
+            };
+
+            const addCommentToFeed = (comment) => {
+                const commentCard = document.createElement('div');
+                commentCard.className = 'comment-card';
+                commentCard.innerHTML = `
+                    <p class="comment-author">${comment.author}</p>
+                    <p class="comment-date">${new Date(comment.date).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}</p>
+                    <p class="comment-body">${comment.body}</p>
+                `;
+                commentsFeed.appendChild(commentCard);
+            };
+
+            // Initial load
+            loadComments();
+        });
+    </script>
+</body>
+</html> 

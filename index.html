@@ -23,6 +23,8 @@
                 <li><a href="#games">Games</a></li>
                 <li><a href="#about">About</a></li>
                 <li><a href="#contact">Contact</a></li>
+                <li><a href="code_and_apply.html">Code & Apply</a></li>
+                <li><a href="comments.html">Comments</a></li>
             </ul>
         </nav>
     </header>
@@ -136,28 +138,69 @@
             </div>
             <div class="game-card">
                 <div class="game-img" id="game17-img"></div>
-                <h3>Hunter Games</h3>
-                <p>Test your survival skills! Collect coins, manage your health and ammo, and see how long you can last in this action-packed hunter game.</p>
-                <a href="https://leozhang2017.github.io/Huntergames/" target="_blank" class="btn">Play Game</a>
-            </div>
+            <h3>Hunter Games</h3>
+            <p>Test your survival skills! Collect coins, manage your health and ammo, and see how long you can last in this action-packed hunter game.</p>
+            <a href="https://leozhang2017.github.io/Huntergames/" target="_blank" class="btn">Play Game</a> 
         </div>
+    </div>
     </section>
 
     <section id="about">
         <h2>About Us</h2>
-        <p>LHMS Game Studios is dedicated to creating fun and engaging games for players of all ages. Our team of passionate developers works hard to bring you the best gaming experience.</p>
-        <p>Founded with a vision to create accessible and entertaining games, we've grown our collection to include a diverse range of experiences - from classic arcade games to complex simulations. Each game is crafted with attention to detail and a commitment to quality that defines the LHMS brand.</p>
-        <p>Our mission is to continue expanding our game library while fostering creativity and innovation in game development. We value player feedback and continuously strive to improve our games based on your suggestions.</p>
-        <p>Join our <a href="http://thehuntersgame.980039.xyz/" target="_blank" class="btn">Hunter Games Forum</a> to connect with other players, share strategies, and stay updated on the latest game developments!</p>
+        <div class="about-content">
+            <div class="about-text">
+                <p>LHMS Game Studios is a passionate team of developers, designers, and creative minds dedicated to crafting exceptional gaming experiences. Founded with a vision to create accessible and entertaining games for players of all ages, we've grown from a small indie studio into a thriving community of game enthusiasts.</p>
+                
+                <h3>Our Mission</h3>
+                <p>We believe that games should be more than just entertainment - they should be experiences that bring people together, challenge minds, and create lasting memories. Our mission is to develop innovative, engaging, and accessible games that appeal to both casual players and hardcore gamers alike.</p>
+                
+                <h3>What We Do</h3>
+                <p>Our diverse portfolio includes everything from classic arcade games to complex simulations, from mobile-friendly experiences to browser-based adventures. Each game is crafted with attention to detail, innovative mechanics, and a commitment to quality that defines the LHMS brand.</p>
+                
+                <h3>Our Team</h3>
+                <p>Our talented team consists of experienced developers, creative designers, and passionate gamers who work together to bring our vision to life. We value collaboration, innovation, and continuous learning, always striving to push the boundaries of what's possible in game development.</p>
+                
+                <h3>Community & Innovation</h3>
+                <p>We're committed to building a strong community around our games. We actively engage with our players, listen to feedback, and continuously improve our games based on your suggestions. Our forum serves as a hub for discussions, strategies, and community building.</p>
+                
+                <div class="about-stats">
+                    <div class="stat">
+                        <h4>17+</h4>
+                        <p>Games Created</p>
+                    </div>
+                    <div class="stat">
+                        <h4>1000+</h4>
+                        <p>Happy Players</p>
+                    </div>
+                    <div class="stat">
+                        <h4>24/7</h4>
+                        <p>Support</p>
+                    </div>
+                </div>
+                
+                <p>Join our <a href="http://thehuntersgame.980039.xyz/" target="_blank" class="btn">Hunter Games Forum</a> to connect with other players, share strategies, and stay updated on the latest game developments!</p>
+                <p style="text-align: center; margin-top: 30px;">
+                    <a href="about us/aboutus.html" class="btn" style="font-size: 1.1rem; padding: 15px 30px;">Learn More About Us</a>
+                </p>
+            </div>
+        </div>
     </section>
 
     <section id="contact">
-        <h2>Contact Us</h2>
-        <form id="contact-form">
-            <input type="text" placeholder="Your Name" required>
-            <input type="email" placeholder="Your Email" required>
-            <textarea placeholder="Your Message" required></textarea>
-            <button type="submit" class="btn">Send Message</button>
+        <h2>Leave a Comment</h2>
+        <p style="text-align: center; max-width: 800px; margin: 0 auto 40px; color: #cccccc; font-size: 1.2rem;">
+            We'd love to hear your thoughts, feedback, or suggestions!
+        </p>
+        <form id="comment-form">
+            <div class="form-group">
+                <label for="comment-author">Your Name</label>
+                <input type="text" id="comment-author" placeholder="Enter your name" required>
+            </div>
+            <div class="form-group">
+                <label for="comment-body">Your Message</label>
+                <textarea id="comment-body" placeholder="What's on your mind?" required rows="5"></textarea>
+            </div>
+            <button type="submit" class="btn">Post Comment</button>
         </form>
     </section>
 
@@ -170,5 +213,33 @@
         </div>
         <p>&copy; 2023 LHMS Game Studios. All rights reserved.</p>
     </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const commentForm = document.getElementById('comment-form');
+            if (commentForm) {
+                commentForm.addEventListener('submit', (e) => {
+                    e.preventDefault();
+                    const authorInput = document.getElementById('comment-author');
+                    const commentInput = document.getElementById('comment-body');
+
+                    const newComment = {
+                        author: authorInput.value,
+                        body: commentInput.value,
+                        date: new Date().toISOString(),
+                    };
+
+                    const comments = JSON.parse(localStorage.getItem('lhms_comments')) || [];
+                    comments.unshift(newComment);
+                    localStorage.setItem('lhms_comments', JSON.stringify(comments));
+
+                    authorInput.value = '';
+                    commentInput.value = '';
+
+                    alert('Thank you for your comment!');
+                });
+            }
+        });
+    </script>
 </body>
 </html>

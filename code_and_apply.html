@@ -8,101 +8,150 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
         .code-section {
-            background-color: #1a1a1a;
-            padding: 40px 20px;
+            background: linear-gradient(135deg, #1a1a1a, #2a2a2a);
+            padding: 100px 20px;
         }
 
         .code-container {
             max-width: 1200px;
             margin: 0 auto;
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 30px;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 40px;
             padding: 20px;
         }
 
         .code-card {
-            background-color: #2a2a2a;
-            border-radius: 10px;
-            padding: 25px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            background: linear-gradient(135deg, #2a2a2a, #3a3a3a);
+            border-radius: 15px;
+            padding: 35px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .code-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #ff4757, #ff6b81);
+            transform: scaleX(0);
             transition: transform 0.3s ease;
         }
 
+        .code-card:hover::before {
+            transform: scaleX(1);
+        }
+
         .code-card:hover {
-            transform: translateY(-5px);
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.6);
         }
 
         .code-card h3 {
             color: #ff4757;
-            margin-bottom: 15px;
-            font-size: 1.5rem;
+            margin-bottom: 20px;
+            font-size: 1.8rem;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
         }
 
         .code-card p {
             color: #cccccc;
-            margin-bottom: 20px;
-            line-height: 1.6;
+            margin-bottom: 25px;
+            line-height: 1.7;
+            font-size: 1.1rem;
         }
 
         .code-card .btn {
             display: inline-block;
-            background: #ff4757;
+            background: linear-gradient(135deg, #ff4757, #ff6b81);
             color: #ffffff;
-            padding: 10px 20px;
-            border-radius: 5px;
+            padding: 12px 25px;
+            border-radius: 25px;
             text-decoration: none;
-            transition: background 0.3s ease;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(255, 71, 87, 0.3);
+            font-weight: bold;
+            text-transform: uppercase;
         }
 
         .code-card .btn:hover {
-            background: #ff6b81;
+            background: linear-gradient(135deg, #ff6b81, #ff4757);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(255, 71, 87, 0.4);
         }
 
         .code-card i {
-            font-size: 2rem;
+            font-size: 3rem;
             color: #ff4757;
-            margin-bottom: 15px;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
         }
 
         .apply-section {
-            background-color: #121212;
-            padding: 40px 20px;
+            background: linear-gradient(135deg, #121212, #1a1a1a);
+            padding: 100px 20px;
         }
 
         .apply-container {
-            max-width: 800px;
+            max-width: 900px;
             margin: 0 auto;
             text-align: center;
         }
 
+        .apply-container p {
+            font-size: 1.2rem;
+            color: #cccccc;
+            margin-bottom: 40px;
+            line-height: 1.8;
+        }
+
         .apply-form {
-            background-color: #2a2a2a;
-            padding: 30px;
-            border-radius: 10px;
-            margin-top: 30px;
+            background: rgba(42, 42, 42, 0.3);
+            padding: 40px;
+            border-radius: 15px;
+            margin-top: 40px;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
         }
 
         .form-group {
-            margin-bottom: 20px;
+            margin-bottom: 25px;
             text-align: left;
         }
 
         .form-group label {
             display: block;
-            margin-bottom: 8px;
+            margin-bottom: 10px;
             color: #ffffff;
+            font-weight: bold;
+            font-size: 1.1rem;
         }
 
         .form-group input,
         .form-group textarea,
         .form-group select {
             width: 100%;
-            padding: 12px;
-            border: none;
-            border-radius: 5px;
-            background-color: #1a1a1a;
+            padding: 15px 20px;
+            border: 2px solid transparent;
+            border-radius: 10px;
+            background: rgba(26, 26, 26, 0.8);
             color: #ffffff;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: #ff4757;
+            background: rgba(26, 26, 26, 0.9);
+            transform: translateY(-2px);
         }
 
         .form-group textarea {
@@ -111,18 +160,75 @@
         }
 
         .submit-btn {
-            background: #ff4757;
+            background: linear-gradient(135deg, #ff4757, #ff6b81);
             color: #ffffff;
-            padding: 12px 30px;
+            padding: 15px 35px;
             border: none;
-            border-radius: 5px;
+            border-radius: 25px;
             cursor: pointer;
-            font-size: 1.1rem;
-            transition: background 0.3s ease;
+            font-size: 1.2rem;
+            font-weight: bold;
+            text-transform: uppercase;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(255, 71, 87, 0.3);
         }
 
         .submit-btn:hover {
-            background: #ff6b81;
+            background: linear-gradient(135deg, #ff6b81, #ff4757);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(255, 71, 87, 0.4);
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin: 40px 0;
+        }
+
+        .feature-item {
+            background: rgba(255, 71, 87, 0.1);
+            padding: 25px;
+            border-radius: 10px;
+            text-align: center;
+            transition: transform 0.3s ease;
+        }
+
+        .feature-item:hover {
+            transform: translateY(-5px);
+        }
+
+        .feature-item i {
+            font-size: 2.5rem;
+            color: #ff4757;
+            margin-bottom: 15px;
+        }
+
+        .feature-item h4 {
+            color: #ffffff;
+            margin-bottom: 10px;
+            font-size: 1.3rem;
+        }
+
+        .feature-item p {
+            color: #cccccc;
+            font-size: 0.95rem;
+        }
+
+        @media (max-width: 768px) {
+            .code-container {
+                grid-template-columns: 1fr;
+                gap: 30px;
+            }
+            
+            .features-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+            
+            .apply-form {
+                padding: 25px;
+            }
         }
     </style>
 </head>
@@ -146,21 +252,21 @@
         <h2>Learn to Code</h2>
         <div class="code-container">
             <div class="code-card">
-                <i class="fas fa-code"></i>
+                <i class="fas fa-gamepad"></i>
                 <h3>Game Development</h3>
-                <p>Learn the fundamentals of game development using modern technologies and frameworks. Start your journey to becoming a game developer!</p>
+                <p>Master the art of game development using modern technologies like Unity, Unreal Engine, and JavaScript. Learn game mechanics, physics, AI, and create your own interactive experiences from concept to completion.</p>
                 <a href="#" class="btn">Start Learning</a>
             </div>
             <div class="code-card">
                 <i class="fas fa-laptop-code"></i>
                 <h3>Web Development</h3>
-                <p>Master web development with HTML, CSS, and JavaScript. Build responsive and interactive websites from scratch.</p>
+                <p>Build responsive and dynamic websites using HTML5, CSS3, and JavaScript. Learn modern frameworks like React, Vue.js, and Node.js to create full-stack web applications that users love.</p>
                 <a href="#" class="btn">Start Learning</a>
             </div>
             <div class="code-card">
                 <i class="fas fa-mobile-alt"></i>
                 <h3>Mobile Development</h3>
-                <p>Create mobile applications for iOS and Android platforms. Learn the latest mobile development technologies.</p>
+                <p>Create powerful mobile applications for iOS and Android platforms. Learn React Native, Flutter, or native development to build apps that reach millions of users worldwide.</p>
                 <a href="#" class="btn">Start Learning</a>
             </div>
         </div>
@@ -169,34 +275,55 @@
     <section class="apply-section">
         <h2>Join Our Team</h2>
         <div class="apply-container">
-            <p>We're always looking for talented individuals to join our team. If you're passionate about gaming and technology, we'd love to hear from you!</p>
+            <p>We're always looking for passionate and talented individuals to join our growing team. If you're excited about gaming, technology, and creating amazing experiences, we'd love to hear from you!</p>
+            
+            <div class="features-grid">
+                <div class="feature-item">
+                    <i class="fas fa-users"></i>
+                    <h4>Collaborative Environment</h4>
+                    <p>Work with a team of passionate developers and designers in a supportive, creative atmosphere.</p>
+                </div>
+                <div class="feature-item">
+                    <i class="fas fa-rocket"></i>
+                    <h4>Growth Opportunities</h4>
+                    <p>Continuous learning and career development with access to the latest technologies and tools.</p>
+                </div>
+                <div class="feature-item">
+                    <i class="fas fa-heart"></i>
+                    <h4>Passion-Driven</h4>
+                    <p>Create games and experiences that millions of players will enjoy and remember.</p>
+                </div>
+            </div>
+
             <div class="apply-form">
                 <form id="application-form">
                     <div class="form-group">
-                        <label for="name">Full Name</label>
+                        <label for="name">Full Name *</label>
                         <input type="text" id="name" name="name" required>
                     </div>
                     <div class="form-group">
-                        <label for="email">Email</label>
+                        <label for="email">Email Address *</label>
                         <input type="email" id="email" name="email" required>
                     </div>
                     <div class="form-group">
-                        <label for="position">Position</label>
+                        <label for="position">Desired Position *</label>
                         <select id="position" name="position" required>
                             <option value="">Select a position</option>
                             <option value="game-developer">Game Developer</option>
                             <option value="web-developer">Web Developer</option>
-                            <option value="ui-designer">UI Designer</option>
+                            <option value="ui-designer">UI/UX Designer</option>
                             <option value="game-designer">Game Designer</option>
+                            <option value="qa-tester">QA Tester</option>
+                            <option value="marketing">Marketing Specialist</option>
                         </select>
                     </div>
                     <div class="form-group">
-                        <label for="experience">Experience</label>
-                        <textarea id="experience" name="experience" required></textarea>
+                        <label for="experience">Relevant Experience *</label>
+                        <textarea id="experience" name="experience" placeholder="Tell us about your experience, skills, and what makes you a great fit for this role..." required></textarea>
                     </div>
                     <div class="form-group">
                         <label for="portfolio">Portfolio URL</label>
-                        <input type="url" id="portfolio" name="portfolio">
+                        <input type="url" id="portfolio" name="portfolio" placeholder="https://your-portfolio.com">
                     </div>
                     <button type="submit" class="submit-btn">Submit Application</button>
                 </form>
